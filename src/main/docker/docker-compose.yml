@@ -1,0 +1,30 @@
+version: '3.8'
+
+name: application-service-container
+services:
+  app:
+    image: 'quarkus/application-service'
+    container_name: "application-app"
+    ports:
+      - '8080:8080'
+    links:
+      - "mysql-db"
+    environment:
+      - DB_USER=root
+      - DB_PWD=root
+      - DB_URL=jdbc:mysql://mysql-db/application
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: "mysql-db"
+    environment:
+      - MYSQL_DATABASE=application
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    volumes:
+      - application:/var/lib/mysql
+      - ./../../../db/sql/create_application_schemas.sql:/docker-entrypoint-initdb.d/create_application_schemas.sql
+volumes:
+  application:
+    driver: local

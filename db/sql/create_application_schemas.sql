@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS application (
 
 CREATE TABLE IF NOT EXISTS applicant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
+  application_id bigint NOT NULL,
   first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   last_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   middle_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -16,20 +17,24 @@ CREATE TABLE IF NOT EXISTS applicant (
   recent_eviction BOOL NOT NULL,
   eviction_explanation varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY application_id_idx (application_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS residential_history (
   id bigint PRIMARY KEY AUTO_INCREMENT,
   applicant_id bigint NOT NULL,
   address_id bigint NOT NULL,
+  current_residence BOOL NOT NULL,
   resided_from_month varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   resided_from_year SMALLINT NOT NULL,
+  resided_to_month varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  resided_to_year SMALLINT DEFAULT NULL,
   monthly_rent decimal(15, 2) NOT NULL,
   landlord_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   landlord_phone_number varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   landlord_email varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  leave_reason varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  leave_reason varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY applicant_id_idx (applicant_id),

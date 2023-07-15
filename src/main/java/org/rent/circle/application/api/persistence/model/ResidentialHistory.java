@@ -2,9 +2,12 @@ package org.rent.circle.application.api.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -23,17 +26,27 @@ public class ResidentialHistory extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "applicant_id")
-    private Long applicantId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "applicant_id")
+    private Applicant applicant;
 
     @Column(name = "address_id")
     private Long addressId;
+
+    @Column(name = "current_residence")
+    private Boolean isCurrentResidence;
 
     @Column(name = "resided_from_month")
     private String residedFromMonth;
 
     @Column(name = "resided_from_year")
     private Integer residedFromYear;
+
+    @Column(name = "resided_to_month")
+    private String residedToMonth;
+
+    @Column(name = "resided_to_year")
+    private Integer residedToYear;
 
     @Column(name = "monthly_rent")
     private BigDecimal monthlyRent;

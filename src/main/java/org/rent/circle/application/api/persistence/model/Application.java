@@ -1,11 +1,24 @@
 package org.rent.circle.application.api.persistence.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.rent.circle.application.api.persistence.BaseModel;
 
+@Entity
+@Table(name = "application")
+@Setter
+@Getter
+@ToString
 public class Application extends BaseModel {
 
     @Id
@@ -14,4 +27,7 @@ public class Application extends BaseModel {
 
     @Column(name = "status")
     private String status;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "application")
+    private Applicant applicant;
 }

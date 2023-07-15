@@ -58,4 +58,7 @@ public class Applicant extends BaseModel {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
     private List<ResidentialHistory> residentialHistories;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    private List<PersonalReference> personalReferences;
 }

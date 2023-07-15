@@ -26,10 +26,6 @@ public class ResidentialHistory extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "applicant_id")
-    private Applicant applicant;
-
     @Column(name = "address_id")
     private Long addressId;
 
@@ -62,4 +58,8 @@ public class ResidentialHistory extends BaseModel {
 
     @Column(name = "leave_reason")
     private String leaveReason;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "applicant_id")
+    private Applicant applicant;
 }

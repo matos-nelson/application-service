@@ -17,7 +17,7 @@ public class IdentificationTest {
         beanTester.addExcludedField("dateOfBirth");
 
         // Act
-        beanTester.testBean(Occupant.class);
+        beanTester.testBean(Identification.class);
 
         // Assert
 

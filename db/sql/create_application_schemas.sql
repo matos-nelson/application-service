@@ -1,3 +1,10 @@
+CREATE TABLE IF NOT EXISTS application (
+  id bigint PRIMARY KEY AUTO_INCREMENT,
+  status varchar(20) NOT NULL,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS applicant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
   first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,

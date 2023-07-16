@@ -1,10 +1,13 @@
 package org.rent.circle.application.api.persistence.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -23,9 +26,6 @@ public class Employer extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "applicant_id")
-    private Long applicantId;
-
     @Column(name = "address_id")
     private Long addressId;
 
@@ -35,7 +35,7 @@ public class Employer extends BaseModel {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "monthlySalary")
+    @Column(name = "monthly_salary")
     private BigDecimal monthlySalary;
 
     @Column(name = "position_held")
@@ -49,4 +49,8 @@ public class Employer extends BaseModel {
 
     @Column(name = "supervisor_email")
     private String supervisorEmail;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id")
+    private Applicant applicant;
 }

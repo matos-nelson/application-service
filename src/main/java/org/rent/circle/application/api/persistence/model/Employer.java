@@ -33,7 +33,7 @@ public class Employer extends BaseModel {
     private String name;
 
     @Column(name = "phone_number")
-    private String phoneNumber;
+    private String phone;
 
     @Column(name = "monthly_salary")
     private BigDecimal monthlySalary;

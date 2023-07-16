@@ -1,5 +1,6 @@
 package org.rent.circle.application.api.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,5 +16,6 @@ import lombok.Setter;
 public class SaveApplicationDto {
 
     @NotNull
+    @Valid
     private ApplicantDto applicant;
 }

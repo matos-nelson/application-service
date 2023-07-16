@@ -1,5 +1,6 @@
 package org.rent.circle.application.api.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.rent.circle.application.api.enums.Suffix;
 
 @Builder
 @Getter
@@ -27,7 +29,7 @@ public class ApplicantDto {
 
     private String middleName;
 
-    private String suffix;
+    private Suffix suffix;
 
     @NotNull
     @NotBlank
@@ -35,7 +37,7 @@ public class ApplicantDto {
 
     @NotNull
     @NotBlank
-    private String phoneNumber;
+    private String phone;
 
     private Boolean isRecentlyEvicted;
 
@@ -43,25 +45,32 @@ public class ApplicantDto {
 
     @NotNull
     @NotEmpty
+    @Valid
     List<ResidentialHistoryDto> residentialHistories;
 
     List<PersonalReferenceDto> personalReferences;
 
+    @Valid
     List<CoApplicantDto> coApplicants;
 
+    @Valid
     List<OccupantDto> occupants;
 
+    @Valid
     List<PetDto> pets;
 
     @NotNull
-    IdentificationDto identificationDto;
+    @Valid
+    IdentificationDto identification;
 
     EmergencyContactDto emergencyContact;
 
     List<VehicleDto> vehicles;
 
     @NotNull
-    EmployerDto employerDto;
+    @Valid
+    EmployerDto employer;
 
+    @Valid
     List<AdditionalIncomeSourceDto> additionalIncomeSources;
 }

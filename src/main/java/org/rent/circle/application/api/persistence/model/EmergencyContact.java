@@ -31,7 +31,7 @@ public class EmergencyContact extends BaseModel {
     @Column(name = "relationship")
     private String relationship;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "email")

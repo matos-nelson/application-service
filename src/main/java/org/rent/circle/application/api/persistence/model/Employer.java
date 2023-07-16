@@ -32,7 +32,7 @@ public class Employer extends BaseModel {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "monthly_salary")

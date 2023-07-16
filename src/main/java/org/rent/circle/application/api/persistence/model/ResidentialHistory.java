@@ -50,7 +50,7 @@ public class ResidentialHistory extends BaseModel {
     @Column(name = "landlord_name")
     private String landlordName;
 
-    @Column(name = "landlord_phone_number")
+    @Column(name = "landlord_phone")
     private String landlordPhone;
 
     @Column(name = "landlord_email")

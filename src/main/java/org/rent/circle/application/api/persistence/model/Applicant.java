@@ -43,7 +43,7 @@ public class Applicant extends BaseModel {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "recent_eviction")

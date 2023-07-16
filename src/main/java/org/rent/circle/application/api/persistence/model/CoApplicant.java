@@ -34,7 +34,7 @@ public class CoApplicant extends BaseModel {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone")
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)

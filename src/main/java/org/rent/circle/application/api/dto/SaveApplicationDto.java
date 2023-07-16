@@ -16,6 +16,9 @@ import lombok.Setter;
 public class SaveApplicationDto {
 
     @NotNull
+    private Long propertyId;
+
+    @NotNull
     @Valid
     private ApplicantDto applicant;
 }

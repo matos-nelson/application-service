@@ -76,4 +76,7 @@ public class Applicant extends BaseModel {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
     private EmergencyContact emergencyContact;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    private List<Vehicle> vehicles;
 }

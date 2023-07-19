@@ -30,7 +30,7 @@ public class ResidentialHistory extends BaseModel {
     private Long addressId;
 
     @Column(name = "current_residence")
-    private Boolean isCurrentResidence;
+    private boolean currentResidence;
 
     @Column(name = "resided_from_month")
     private String residedFromMonth;

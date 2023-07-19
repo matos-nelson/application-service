@@ -47,7 +47,7 @@ public class Applicant extends BaseModel {
     private String phone;
 
     @Column(name = "recent_eviction")
-    private Boolean isRecentlyEvicted;
+    private boolean recentlyEvicted;
 
     @Column(name = "eviction_explanation")
     private String evictionExplanation;

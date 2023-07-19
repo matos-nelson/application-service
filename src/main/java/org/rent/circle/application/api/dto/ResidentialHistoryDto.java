@@ -19,7 +19,7 @@ public class ResidentialHistoryDto {
     @NotNull
     private Long addressId;
 
-    private Boolean isCurrentResidence;
+    private boolean currentResidence;
 
     @NotNull
     @NotBlank

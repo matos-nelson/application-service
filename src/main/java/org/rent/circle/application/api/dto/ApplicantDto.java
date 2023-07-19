@@ -39,7 +39,7 @@ public class ApplicantDto {
     @NotBlank
     private String phone;
 
-    private Boolean isRecentlyEvicted;
+    private boolean recentlyEvicted;
 
     private String evictionExplanation;
 

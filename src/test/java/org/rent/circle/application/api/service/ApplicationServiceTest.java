@@ -2,6 +2,8 @@ package org.rent.circle.application.api.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -45,5 +47,37 @@ public class ApplicationServiceTest {
         assertNotNull(result);
         assertEquals(application.getId(), result);
         assertEquals(Status.PENDING_APPROVAL.name(), application.getStatus());
+    }
+
+    @Test
+    public void updateApplicationStatus_WhenApplicationCantBeFound_ShouldReturn() {
+        // Arrange
+        Application application = new Application();
+        Long applicationId = 1L;
+        when(applicationRepository.findById(applicationId)).thenReturn(null);
+
+        // Act
+        applicationService.updateApplicationStatus(applicationId, Status.APPROVED);
+
+        // Assert
+        verify(applicationRepository, times(0)).persist(application);
+    }
+
+    @Test
+    public void updateApplicationStatus_WhenApplicationIsFound_ShouldUpdateStatus() {
+        // Arrange
+        Long applicationId = 1L;
+        Application application = new Application();
+        application.setId(applicationId);
+        application.setStatus(Status.PENDING_APPROVAL.name());
+
+        when(applicationRepository.findById(applicationId)).thenReturn(application);
+
+        // Act
+        applicationService.updateApplicationStatus(applicationId, Status.APPROVED);
+
+        // Assert
+        assertEquals(Status.APPROVED.name(), application.getStatus());
+        verify(applicationRepository, times(1)).persist(application);
     }
 }

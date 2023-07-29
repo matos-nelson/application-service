@@ -9,6 +9,7 @@ import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Collections;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
@@ -28,9 +29,9 @@ public class ApplicationResourceTest {
         // Arrange
         ResidentialHistoryDto residentialHistoryDto = ResidentialHistoryDto.builder()
             .addressId(1L)
-            .residedFromMonth("January")
+            .residedFromMonth(Month.JANUARY)
             .residedFromYear(2000)
-            .residedToMonth("January")
+            .residedToMonth(Month.JANUARY)
             .residedToYear(2010)
             .monthlyRent(BigDecimal.ONE)
             .landlordName("Landlord name")

@@ -3,6 +3,7 @@ package org.rent.circle.application.api.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.Month;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,15 +23,13 @@ public class ResidentialHistoryDto {
     private boolean currentResidence;
 
     @NotNull
-    @NotBlank
-    private String residedFromMonth;
+    private Month residedFromMonth;
 
     @NotNull
     private Integer residedFromYear;
 
     @NotNull
-    @NotBlank
-    private String residedToMonth;
+    private Month residedToMonth;
 
     @NotNull
     private Integer residedToYear;

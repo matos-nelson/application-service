@@ -8,6 +8,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.application.api.dto.AdditionalIncomeSourceDto;
@@ -96,9 +97,9 @@ public class ApplicationMapperTest {
         ResidentialHistoryDto residentialHistory = ResidentialHistoryDto.builder()
             .addressId(1L)
             .currentResidence(true)
-            .residedFromMonth("January")
+            .residedFromMonth(Month.JANUARY)
             .residedFromYear(2000)
-            .residedToMonth("February")
+            .residedToMonth(Month.FEBRUARY)
             .residedToYear(2010)
             .monthlyRent(BigDecimal.valueOf(12.34))
             .landlordName("Landlord Name")
@@ -122,9 +123,9 @@ public class ApplicationMapperTest {
         assertNotNull(result.getApplicant().getResidentialHistories());
         assertEquals(residentialHistory.getAddressId(), result.getApplicant().getResidentialHistories().get(0).getAddressId());
         assertEquals(residentialHistory.isCurrentResidence(), result.getApplicant().getResidentialHistories().get(0).isCurrentResidence());
-        assertEquals(residentialHistory.getResidedFromMonth(), result.getApplicant().getResidentialHistories().get(0).getResidedFromMonth());
+        assertEquals(residentialHistory.getResidedFromMonth().name(), result.getApplicant().getResidentialHistories().get(0).getResidedFromMonth());
         assertEquals(residentialHistory.getResidedFromYear(), result.getApplicant().getResidentialHistories().get(0).getResidedFromYear());
-        assertEquals(residentialHistory.getResidedToMonth(), result.getApplicant().getResidentialHistories().get(0).getResidedToMonth());
+        assertEquals(residentialHistory.getResidedToMonth().name(), result.getApplicant().getResidentialHistories().get(0).getResidedToMonth());
         assertEquals(residentialHistory.getResidedToYear(), result.getApplicant().getResidentialHistories().get(0).getResidedToYear());
         assertEquals(residentialHistory.getMonthlyRent(), result.getApplicant().getResidentialHistories().get(0).getMonthlyRent());
         assertEquals(residentialHistory.getLandlordName(), result.getApplicant().getResidentialHistories().get(0).getLandlordName());

@@ -57,7 +57,7 @@ public class ApplicationServiceTest {
         when(applicationRepository.findById(applicationId)).thenReturn(null);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, Status.APPROVED);
+        applicationService.updateApplicationStatus(applicationId, Status.APPROVED, "note");
 
         // Assert
         verify(applicationRepository, times(0)).persist(application);
@@ -67,6 +67,7 @@ public class ApplicationServiceTest {
     public void updateApplicationStatus_WhenApplicationIsFound_ShouldUpdateStatus() {
         // Arrange
         Long applicationId = 1L;
+        String note = "my note";
         Application application = new Application();
         application.setId(applicationId);
         application.setStatus(Status.PENDING_APPROVAL.name());
@@ -74,10 +75,11 @@ public class ApplicationServiceTest {
         when(applicationRepository.findById(applicationId)).thenReturn(application);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, Status.APPROVED);
+        applicationService.updateApplicationStatus(applicationId, Status.APPROVED, note);
 
         // Assert
         assertEquals(Status.APPROVED.name(), application.getStatus());
+        assertEquals(note, application.getNote());
         verify(applicationRepository, times(1)).persist(application);
     }
 }

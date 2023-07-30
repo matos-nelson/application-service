@@ -32,6 +32,9 @@ public class Application extends BaseModel {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "note")
+    private String note;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "applicant_id", referencedColumnName = "id")
     private Applicant applicant;

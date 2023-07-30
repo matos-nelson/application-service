@@ -17,4 +17,5 @@ public class UpdateApplicationStatusDto {
 
     @NotNull
     Status status;
+    String note;
 }

@@ -28,7 +28,7 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void updateApplicationStatus(Long applicationId, Status status) {
+    public void updateApplicationStatus(Long applicationId, Status status, String note) {
 
         Application application = applicationRepository.findById(applicationId);
         if (application == null) {
@@ -36,6 +36,8 @@ public class ApplicationService {
         }
 
         application.setStatus(status.name());
+        application.setNote(note);
+
         applicationRepository.persist(application);
     }
 }

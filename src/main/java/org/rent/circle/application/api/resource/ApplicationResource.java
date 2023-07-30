@@ -34,6 +34,6 @@ public class ApplicationResource {
     public void updateApplicationStatus(
         @NotNull @PathParam("id") Long applicationId,
         @Valid UpdateApplicationStatusDto applicationStatus) {
-        applicationService.updateApplicationStatus(applicationId, applicationStatus.getStatus());
+        applicationService.updateApplicationStatus(applicationId, applicationStatus.getStatus(), applicationStatus.getNote());
     }
 }

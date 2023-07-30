@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS application (
   property_id bigint NOT NULL,
   applicant_id bigint NOT NULL,
   status varchar(20) NOT NULL,
+  note text DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY property_id_idx (property_id),

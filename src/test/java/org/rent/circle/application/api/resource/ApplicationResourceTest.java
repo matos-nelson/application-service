@@ -18,6 +18,8 @@ import org.rent.circle.application.api.dto.EmployerDto;
 import org.rent.circle.application.api.dto.IdentificationDto;
 import org.rent.circle.application.api.dto.ResidentialHistoryDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
+import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
+import org.rent.circle.application.api.enums.Status;
 
 @QuarkusTest
 @TestHTTPEndpoint(ApplicationResource.class)
@@ -94,6 +96,41 @@ public class ApplicationResourceTest {
             .body(saveApplicationDto)
             .when()
             .post()
+            .then()
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void PATCH_WhenGivenAValidRequestToUpdateApplicationStatus_ShouldReturnOk() {
+        // Arrange
+        UpdateApplicationStatusDto updateApplicationStatusDto = UpdateApplicationStatusDto.builder()
+            .status(Status.APPROVED)
+            .build();
+
+        // Act
+        // Assert
+        given()
+            .contentType("application/json")
+            .body(updateApplicationStatusDto)
+            .when()
+            .patch("/100/status")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void PATCH_WhenGivenAnInValidRequestToUpdateApplicationStatus_ShouldReturnBadRequest() {
+        // Arrange
+        UpdateApplicationStatusDto updateApplicationStatusDto = UpdateApplicationStatusDto.builder()
+            .build();
+
+        // Act
+        // Assert
+        given()
+            .contentType("application/json")
+            .body(updateApplicationStatusDto)
+            .when()
+            .patch("/1/status")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }

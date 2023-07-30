@@ -26,5 +26,19 @@ public class ApplicationService {
         applicationRepository.persist(application);
         return application.getId();
     }
+
+    @Transactional
+    public void updateApplicationStatus(Long applicationId, Status status, String note) {
+
+        Application application = applicationRepository.findById(applicationId);
+        if (application == null) {
+            return;
+        }
+
+        application.setStatus(status.name());
+        application.setNote(note);
+
+        applicationRepository.persist(application);
+    }
 }
 

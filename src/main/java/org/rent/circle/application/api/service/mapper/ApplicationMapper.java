@@ -4,6 +4,7 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
+import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
 import org.rent.circle.application.api.persistence.model.Applicant;
 import org.rent.circle.application.api.persistence.model.Application;
@@ -12,6 +13,8 @@ import org.rent.circle.application.api.persistence.model.Application;
 public interface ApplicationMapper {
 
     Application toModel(SaveApplicationDto application);
+
+    ApplicationDto toDto(Application application);
 
     @AfterMapping
     default void afterMapping(@MappingTarget Application target) {

@@ -10,4 +10,4 @@ INSERT INTO residential_history(id, applicant_id, address_id, current_residence,
 values (300, 200, 1, 1, 'JANUARY', 2000, 'MARCH', 2010, 1500.00, 'Landlord Name', 'landlord@email.com', '4561237890');
 
 INSERT INTO applicant(id, first_name, last_name, email, phone, recent_eviction) values (300, 'First', 'Last', 'first.last@email.com', '1234567890', false);
-INSERT INTO application(id, property_id, manager_id, applicant_id, status) values (500, 1, 2, 300, 'PENDING_APPROVAL');
+INSERT INTO application(id, property_id, manager_id, applicant_id, status) values (500, 1, 3, 300, 'PENDING_APPROVAL');

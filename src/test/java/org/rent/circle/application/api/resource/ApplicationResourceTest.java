@@ -2,6 +2,8 @@ package org.rent.circle.application.api.resource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Collections;
 import org.apache.http.HttpStatus;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.application.api.dto.ApplicantDto;
 import org.rent.circle.application.api.dto.EmployerDto;
@@ -89,6 +92,7 @@ public class ApplicationResourceTest {
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
             .build();
+
         // Act
         // Assert
         given()
@@ -113,7 +117,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/100/status")
+            .patch("/300/status")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -133,5 +137,51 @@ public class ApplicationResourceTest {
             .patch("/1/status")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void GET_WhenAnApplicationCantBeFound_ShouldReturnNoContent() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/1")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void GET_WhenApplicationIsFound_ShouldReturnApplication() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/100")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body("id", is(100),
+                "propertyId", is(1),
+                "note", is(nullValue()),
+                "status", is("PENDING_APPROVAL"),
+                "applicant.firstName", is("First"),
+                "applicant.lastName", is("Last"),
+                "applicant.email", is("first.last@email.com"),
+                "applicant.phone", is("1234567890"),
+                "applicant.recentlyEvicted", is(false),
+                "applicant.residentialHistories", is(Matchers.hasSize(1)),
+                "applicant.employer", is(notNullValue()),
+                "applicant.identification", is(notNullValue()),
+                "applicant.personalReferences", is(Matchers.hasSize(0)),
+                "applicant.coApplicants", is(Matchers.hasSize(0)),
+                "applicant.occupants", is(Matchers.hasSize(0)),
+                "applicant.pets", is(Matchers.hasSize(0)),
+                "applicant.emergencyContact", is(nullValue()),
+                "applicant.vehicles", is(Matchers.hasSize(0)),
+                "applicant.additionalIncomeSources", is(Matchers.hasSize(0))
+            );
     }
 }

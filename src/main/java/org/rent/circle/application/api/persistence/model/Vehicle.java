@@ -31,7 +31,7 @@ public class Vehicle extends BaseModel {
     @Column(name = "model")
     private String model;
 
-    @Column(name = "year")
+    @Column(name = "year_made")
     private Integer year;
 
     @Column(name = "color")

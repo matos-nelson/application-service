@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS vehicle (
   applicant_id bigint NOT NULL,
   make varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   model varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  year SMALLINT DEFAULT NULL,
+  year_made SMALLINT DEFAULT NULL,
   color varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   licence_num varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

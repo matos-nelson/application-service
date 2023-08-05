@@ -2,18 +2,27 @@ package org.rent.circle.application.api.resource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.common.mapper.TypeRef;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Collections;
+import java.util.List;
 import org.apache.http.HttpStatus;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.application.api.dto.ApplicantDto;
+import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.EmployerDto;
 import org.rent.circle.application.api.dto.IdentificationDto;
 import org.rent.circle.application.api.dto.ResidentialHistoryDto;
@@ -68,6 +77,7 @@ public class ApplicationResourceTest {
 
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
+            .managerId(2L)
             .applicant(applicantDto)
             .build();
 
@@ -89,6 +99,7 @@ public class ApplicationResourceTest {
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
             .build();
+
         // Act
         // Assert
         given()
@@ -113,7 +124,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/100/status")
+            .patch("/300/status")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -131,6 +142,106 @@ public class ApplicationResourceTest {
             .body(updateApplicationStatusDto)
             .when()
             .patch("/1/status")
+            .then()
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void GET_WhenAnApplicationCantBeFound_ShouldReturnNoContent() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/1")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void GET_WhenApplicationIsFound_ShouldReturnApplication() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/100")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body("id", is(100),
+                "propertyId", is(1),
+                "managerId", is(2),
+                "note", is(nullValue()),
+                "status", is("PENDING_APPROVAL"),
+                "applicant.firstName", is("First"),
+                "applicant.lastName", is("Last"),
+                "applicant.email", is("first.last@email.com"),
+                "applicant.phone", is("1234567890"),
+                "applicant.recentlyEvicted", is(false),
+                "applicant.residentialHistories", is(Matchers.hasSize(1)),
+                "applicant.employer", is(notNullValue()),
+                "applicant.identification", is(notNullValue()),
+                "applicant.personalReferences", is(Matchers.hasSize(0)),
+                "applicant.coApplicants", is(Matchers.hasSize(0)),
+                "applicant.occupants", is(Matchers.hasSize(0)),
+                "applicant.pets", is(Matchers.hasSize(0)),
+                "applicant.emergencyContact", is(nullValue()),
+                "applicant.vehicles", is(Matchers.hasSize(0)),
+                "applicant.additionalIncomeSources", is(Matchers.hasSize(0))
+            );
+    }
+
+    @Test
+    public void GET_getApplications_WhenApplicationsCantBeFound_ShouldReturnNoRequests() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/manager/999?page=0&pageSize=10")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body(is("[]"));
+    }
+
+    @Test
+    public void GET_getApplications_WhenApplicationsAreFound_ShouldReturnRequests() {
+        // Arrange
+
+        // Act
+        List<ApplicationDto> result = given()
+            .when()
+            .get("/manager/2?page=0&pageSize=10")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .extract()
+            .body()
+            .as(new TypeRef<>() {
+            });
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(100L, result.get(0).getId());
+        assertEquals(1L, result.get(0).getPropertyId());
+        assertEquals(2L, result.get(0).getManagerId());
+        assertEquals(Status.PENDING_APPROVAL, result.get(0).getStatus());
+        assertNull(result.get(0).getNote());
+        assertNotNull(result.get(0).getApplicant());
+    }
+
+    @Test
+    public void GET_getApplications_WhenFailsValidation_ShouldReturnBadRequest() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/manager/123?page=0")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }

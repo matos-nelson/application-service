@@ -2,6 +2,8 @@ package org.rent.circle.application.api.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,7 +11,10 @@ import static org.mockito.Mockito.when;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import jakarta.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
@@ -81,5 +86,77 @@ public class ApplicationServiceTest {
         assertEquals(Status.APPROVED.name(), application.getStatus());
         assertEquals(note, application.getNote());
         verify(applicationRepository, times(1)).persist(application);
+    }
+
+    @Test
+    public void getApplication_WhenApplicationIsNotFound_ShouldReturnNull() {
+        // Arrange
+        Long applicationId = 1L;
+
+        when(applicationRepository.findById(applicationId)).thenReturn(null);
+
+        // Act
+        ApplicationDto result = applicationService.getApplication(applicationId);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void getApplication_WhenApplicationIsFound_ShouldReturnApplication() {
+        // Arrange
+        Long applicationId = 1L;
+        Application application = new Application();
+        application.setId(applicationId);
+        application.setStatus(Status.PENDING_APPROVAL.name());
+
+        ApplicationDto applicationDto = ApplicationDto.builder()
+            .id(applicationId)
+            .status(Status.valueOf(application.getStatus()))
+            .build();
+        when(applicationRepository.findById(applicationId)).thenReturn(application);
+        when(applicationMapper.toDto(application)).thenReturn(applicationDto);
+
+        // Act
+        ApplicationDto result = applicationService.getApplication(applicationId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(applicationDto, result);
+    }
+
+    @Test
+    public void getApplications_WhenApplicationsWithGivenManagerIdAreNotFound_ShouldReturnEmptyList() {
+        // Arrange
+        Long ownerId = 1L;
+        int page = 2;
+        int pageSize = 10;
+
+        when(applicationRepository.findApplications(ownerId, page, pageSize)).thenReturn(null);
+
+        // Act
+        List<ApplicationDto> result = applicationService.getApplications(ownerId, page, pageSize);
+
+        // Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void getApplications_WhenApplicationWithGivenManagerIdIdAreFound_ShouldReturnList() {
+        // Arrange
+        Long ownerId = 1L;
+        int page = 2;
+        int pageSize = 10;
+        List<Application> applications = Collections.singletonList(new Application());
+        when(applicationRepository.findApplications(ownerId, page, pageSize)).thenReturn(applications);
+        when(applicationMapper.toDtoList(applications)).thenReturn(
+            Collections.singletonList(new ApplicationDto()));
+
+        // Act
+        List<ApplicationDto> result = applicationService.getApplications(ownerId, page, pageSize);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.size());
     }
 }

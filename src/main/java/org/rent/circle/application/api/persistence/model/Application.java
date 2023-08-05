@@ -26,6 +26,9 @@ public class Application extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "manager_id")
+    private Long managerId;
+
     @Column(name = "property_id")
     private Long propertyId;
 

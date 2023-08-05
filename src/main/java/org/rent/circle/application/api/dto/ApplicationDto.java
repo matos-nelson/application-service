@@ -1,27 +1,23 @@
 package org.rent.circle.application.api.dto;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.rent.circle.application.api.enums.Status;
 
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaveApplicationDto {
+public class ApplicationDto {
 
-    @NotNull
+    private Long id;
     private Long managerId;
-
-    @NotNull
     private Long propertyId;
-
-    @NotNull
-    @Valid
+    private Status status;
+    private String note;
     private ApplicantDto applicant;
 }

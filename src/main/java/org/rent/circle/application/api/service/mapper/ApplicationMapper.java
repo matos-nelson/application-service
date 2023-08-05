@@ -1,5 +1,6 @@
 package org.rent.circle.application.api.service.mapper;
 
+import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -15,6 +16,8 @@ public interface ApplicationMapper {
     Application toModel(SaveApplicationDto application);
 
     ApplicationDto toDto(Application application);
+
+    List<ApplicationDto> toDtoList(List<Application> maintenanceRequests);
 
     @AfterMapping
     default void afterMapping(@MappingTarget Application target) {

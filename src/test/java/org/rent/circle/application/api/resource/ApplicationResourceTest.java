@@ -71,6 +71,7 @@ public class ApplicationResourceTest {
 
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
+            .managerId(2L)
             .applicant(applicantDto)
             .build();
 
@@ -165,6 +166,7 @@ public class ApplicationResourceTest {
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),
                 "propertyId", is(1),
+                "managerId", is(2),
                 "note", is(nullValue()),
                 "status", is("PENDING_APPROVAL"),
                 "applicant.firstName", is("First"),

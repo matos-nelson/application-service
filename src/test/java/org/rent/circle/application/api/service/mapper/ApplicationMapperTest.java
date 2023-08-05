@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.application.api.dto.AdditionalIncomeSourceDto;
 import org.rent.circle.application.api.dto.ApplicantDto;
@@ -61,6 +62,7 @@ public class ApplicationMapperTest {
         // Arrange
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
+            .managerId(2L)
             .build();
 
         // Act
@@ -68,6 +70,7 @@ public class ApplicationMapperTest {
 
         // Assert
         assertNotNull(result);
+        assertEquals(saveApplicationDto.getManagerId(), result.getManagerId());
         assertEquals(saveApplicationDto.getPropertyId(), result.getPropertyId());
     }
 
@@ -429,6 +432,7 @@ public class ApplicationMapperTest {
         Application application = new Application();
         application.setId(1L);
         application.setPropertyId(2L);
+        application.setManagerId(3L);
         application.setStatus(Status.DENIED.name());
         application.setNote("My Note");
 
@@ -439,6 +443,7 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertEquals(application.getId(), result.getId());
         assertEquals(application.getPropertyId(), result.getPropertyId());
+        assertEquals(application.getManagerId(), result.getManagerId());
         assertEquals(application.getStatus(), result.getStatus().name());
         assertEquals(application.getNote(), result.getNote());
     }
@@ -770,6 +775,40 @@ public class ApplicationMapperTest {
         assertNotNull(result.getApplicant().getAdditionalIncomeSources());
         assertEquals(additionalIncomeSource.getName(), result.getApplicant().getAdditionalIncomeSources().get(0).getName());
         assertEquals(additionalIncomeSource.getMonthlyIncome(), result.getApplicant().getAdditionalIncomeSources().get(0).getMonthlyIncome());
+    }
+
+    @Test
+    public void toDtoList_WhenGivenNull_ShouldReturnNull() {
+        // Arrange
+
+        // Act
+        List<ApplicationDto> result = applicationMapper.toDtoList(null);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void toDtoList_WhenGivenApplications_ShouldMap() {
+        // Arrange
+        Application application = new Application();
+        application.setId(1L);
+        application.setPropertyId(2L);
+        application.setManagerId(3L);
+        application.setStatus(Status.DENIED.name());
+        application.setNote("My Note");
+
+        // Act
+        List<ApplicationDto> result = applicationMapper.toDtoList(Collections.singletonList(application));
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(application.getId(), result.get(0).getId());
+        assertEquals(application.getPropertyId(), result.get(0).getPropertyId());
+        assertEquals(application.getManagerId(), result.get(0).getManagerId());
+        assertEquals(application.getStatus(), result.get(0).getStatus().name());
+        assertEquals(application.getNote(), result.get(0).getNote());
     }
 }
 

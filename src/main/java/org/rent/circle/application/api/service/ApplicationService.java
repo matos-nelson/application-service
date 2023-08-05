@@ -2,6 +2,7 @@ package org.rent.circle.application.api.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.application.api.dto.ApplicationDto;
@@ -45,6 +46,11 @@ public class ApplicationService {
     public ApplicationDto getApplication(Long id) {
         Application application = applicationRepository.findById(id);
         return applicationMapper.toDto(application);
+    }
+
+    public List<ApplicationDto> getApplications(Long managerId, int page, int pageSize) {
+        List<Application> applications = applicationRepository.findApplications(managerId, page, pageSize);
+        return applicationMapper.toDtoList(applications);
     }
 }
 

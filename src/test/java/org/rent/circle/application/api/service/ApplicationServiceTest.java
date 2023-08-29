@@ -14,8 +14,10 @@ import jakarta.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
+import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
 import org.rent.circle.application.api.persistence.repository.ApplicationRepository;
@@ -57,15 +59,19 @@ public class ApplicationServiceTest {
     @Test
     public void updateApplicationStatus_WhenApplicationCantBeFound_ShouldReturn() {
         // Arrange
-        Application application = new Application();
         Long applicationId = 1L;
+        UpdateApplicationStatusDto updateApplicationStatus = UpdateApplicationStatusDto.builder()
+            .status(Status.APPROVED)
+            .note("note")
+            .build();
+
         when(applicationRepository.findById(applicationId)).thenReturn(null);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, Status.APPROVED, "note");
+        applicationService.updateApplicationStatus(applicationId, updateApplicationStatus);
 
         // Assert
-        verify(applicationRepository, times(0)).persist(application);
+        verify(applicationRepository, times(0)).persist((Application) Mockito.any());
     }
 
     @Test
@@ -73,14 +79,20 @@ public class ApplicationServiceTest {
         // Arrange
         Long applicationId = 1L;
         String note = "my note";
+
         Application application = new Application();
         application.setId(applicationId);
         application.setStatus(Status.PENDING_APPROVAL.name());
 
+        UpdateApplicationStatusDto updateApplicationStatus = UpdateApplicationStatusDto.builder()
+            .status(Status.APPROVED)
+            .note(note)
+            .build();
+
         when(applicationRepository.findById(applicationId)).thenReturn(application);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, Status.APPROVED, note);
+        applicationService.updateApplicationStatus(applicationId, updateApplicationStatus);
 
         // Assert
         assertEquals(Status.APPROVED.name(), application.getStatus());

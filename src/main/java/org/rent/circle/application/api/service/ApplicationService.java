@@ -43,8 +43,8 @@ public class ApplicationService {
         applicationRepository.persist(application);
     }
 
-    public ApplicationDto getApplication(Long id) {
-        Application application = applicationRepository.findById(id);
+    public ApplicationDto getApplication(Long id, Long managerId) {
+        Application application = applicationRepository.findApplication(id, managerId);
         return applicationMapper.toDto(application);
     }
 

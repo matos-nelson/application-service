@@ -92,11 +92,11 @@ public class ApplicationServiceTest {
     public void getApplication_WhenApplicationIsNotFound_ShouldReturnNull() {
         // Arrange
         Long applicationId = 1L;
-
-        when(applicationRepository.findById(applicationId)).thenReturn(null);
+        Long managerId = 2L;
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(null);
 
         // Act
-        ApplicationDto result = applicationService.getApplication(applicationId);
+        ApplicationDto result = applicationService.getApplication(applicationId, managerId);
 
         // Assert
         assertNull(result);
@@ -106,19 +106,21 @@ public class ApplicationServiceTest {
     public void getApplication_WhenApplicationIsFound_ShouldReturnApplication() {
         // Arrange
         Long applicationId = 1L;
+        Long managerId = 2L;
         Application application = new Application();
         application.setId(applicationId);
+        application.setManagerId(managerId);
         application.setStatus(Status.PENDING_APPROVAL.name());
 
         ApplicationDto applicationDto = ApplicationDto.builder()
             .id(applicationId)
             .status(Status.valueOf(application.getStatus()))
             .build();
-        when(applicationRepository.findById(applicationId)).thenReturn(application);
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(application);
         when(applicationMapper.toDto(application)).thenReturn(applicationDto);
 
         // Act
-        ApplicationDto result = applicationService.getApplication(applicationId);
+        ApplicationDto result = applicationService.getApplication(applicationId, managerId);
 
         // Assert
         assertNotNull(result);

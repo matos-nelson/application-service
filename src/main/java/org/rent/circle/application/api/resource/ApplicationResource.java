@@ -43,9 +43,9 @@ public class ApplicationResource {
     }
 
     @GET
-    @Path("/{id}")
-    public ApplicationDto getApplication(@PathParam("id") Long applicationId) {
-        return applicationService.getApplication(applicationId);
+    @Path("/{id}/manager/{managerId}")
+    public ApplicationDto getApplication(@PathParam("id") Long applicationId, @PathParam("managerId") Long managerId) {
+        return applicationService.getApplication(applicationId, managerId);
     }
 
     @GET

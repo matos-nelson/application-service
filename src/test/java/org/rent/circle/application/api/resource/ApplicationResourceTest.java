@@ -154,7 +154,7 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/1")
+            .get("/1/manager/2")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -167,7 +167,7 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/100")
+            .get("/100/manager/2")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),

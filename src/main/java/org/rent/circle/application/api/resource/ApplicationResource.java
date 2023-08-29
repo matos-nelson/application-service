@@ -40,7 +40,7 @@ public class ApplicationResource {
         @NotNull @PathParam("id") Long applicationId,
         @NotNull @PathParam("managerId") Long managerId,
         @Valid UpdateApplicationStatusDto updatedApplicationStatus) {
-        applicationService.updateApplicationStatus(applicationId, updatedApplicationStatus);
+        applicationService.updateApplicationStatus(applicationId, managerId, updatedApplicationStatus);
     }
 
     @GET

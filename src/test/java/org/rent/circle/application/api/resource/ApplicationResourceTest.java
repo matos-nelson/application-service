@@ -124,7 +124,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/300/status")
+            .patch("/300/manager/2/status")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -141,7 +141,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/1/status")
+            .patch("/1/manager/2/status")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }

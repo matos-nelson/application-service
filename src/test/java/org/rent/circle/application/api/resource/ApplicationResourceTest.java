@@ -124,7 +124,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/300/status")
+            .patch("/300/manager/2/status")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -141,7 +141,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/1/status")
+            .patch("/1/manager/2/status")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
@@ -154,7 +154,7 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/1")
+            .get("/1/manager/2")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -167,7 +167,7 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/100")
+            .get("/100/manager/2")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),

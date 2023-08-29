@@ -35,24 +35,25 @@ public class ApplicationResource {
     }
 
     @PATCH
-    @Path("/{id}/status")
+    @Path("/{id}/manager/{managerId}/status")
     public void updateApplicationStatus(
         @NotNull @PathParam("id") Long applicationId,
-        @Valid UpdateApplicationStatusDto applicationStatus) {
-        applicationService.updateApplicationStatus(applicationId, applicationStatus.getStatus(), applicationStatus.getNote());
+        @NotNull @PathParam("managerId") Long managerId,
+        @Valid UpdateApplicationStatusDto updatedApplicationStatus) {
+        applicationService.updateApplicationStatus(applicationId, managerId, updatedApplicationStatus);
     }
 
     @GET
-    @Path("/{id}")
-    public ApplicationDto getApplication(@PathParam("id") Long applicationId) {
-        return applicationService.getApplication(applicationId);
+    @Path("/{id}/manager/{managerId}")
+    public ApplicationDto getApplication(@NotNull @PathParam("id") Long applicationId, @NotNull @PathParam("managerId") Long managerId) {
+        return applicationService.getApplication(applicationId, managerId);
     }
 
     @GET
     @Path("/manager/{managerId}")
-    public List<ApplicationDto> getApplications(@PathParam("managerId") Long managerId,
-        @QueryParam("page") @NotNull @Min(0) Integer page,
-        @QueryParam("pageSize") @NotNull @Min(1) Integer pageSize) {
+    public List<ApplicationDto> getApplications(@NotNull @PathParam("managerId") Long managerId,
+        @NotNull @QueryParam("page") @Min(0) Integer page,
+        @NotNull @QueryParam("pageSize") @Min(1) Integer pageSize) {
         return applicationService.getApplications(managerId, page, pageSize);
     }
 }

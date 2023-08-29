@@ -14,8 +14,10 @@ import jakarta.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
+import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
 import org.rent.circle.application.api.persistence.repository.ApplicationRepository;
@@ -57,30 +59,42 @@ public class ApplicationServiceTest {
     @Test
     public void updateApplicationStatus_WhenApplicationCantBeFound_ShouldReturn() {
         // Arrange
-        Application application = new Application();
         Long applicationId = 1L;
-        when(applicationRepository.findById(applicationId)).thenReturn(null);
+        Long managerId = 2L;
+        UpdateApplicationStatusDto updateApplicationStatus = UpdateApplicationStatusDto.builder()
+            .status(Status.APPROVED)
+            .note("note")
+            .build();
+
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(null);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, Status.APPROVED, "note");
+        applicationService.updateApplicationStatus(applicationId, managerId, updateApplicationStatus);
 
         // Assert
-        verify(applicationRepository, times(0)).persist(application);
+        verify(applicationRepository, times(0)).persist((Application) Mockito.any());
     }
 
     @Test
     public void updateApplicationStatus_WhenApplicationIsFound_ShouldUpdateStatus() {
         // Arrange
         Long applicationId = 1L;
+        Long managerId = 2L;
         String note = "my note";
+
         Application application = new Application();
         application.setId(applicationId);
         application.setStatus(Status.PENDING_APPROVAL.name());
 
-        when(applicationRepository.findById(applicationId)).thenReturn(application);
+        UpdateApplicationStatusDto updateApplicationStatus = UpdateApplicationStatusDto.builder()
+            .status(Status.APPROVED)
+            .note(note)
+            .build();
+
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(application);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, Status.APPROVED, note);
+        applicationService.updateApplicationStatus(applicationId, managerId, updateApplicationStatus);
 
         // Assert
         assertEquals(Status.APPROVED.name(), application.getStatus());
@@ -92,11 +106,11 @@ public class ApplicationServiceTest {
     public void getApplication_WhenApplicationIsNotFound_ShouldReturnNull() {
         // Arrange
         Long applicationId = 1L;
-
-        when(applicationRepository.findById(applicationId)).thenReturn(null);
+        Long managerId = 2L;
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(null);
 
         // Act
-        ApplicationDto result = applicationService.getApplication(applicationId);
+        ApplicationDto result = applicationService.getApplication(applicationId, managerId);
 
         // Assert
         assertNull(result);
@@ -106,19 +120,21 @@ public class ApplicationServiceTest {
     public void getApplication_WhenApplicationIsFound_ShouldReturnApplication() {
         // Arrange
         Long applicationId = 1L;
+        Long managerId = 2L;
         Application application = new Application();
         application.setId(applicationId);
+        application.setManagerId(managerId);
         application.setStatus(Status.PENDING_APPROVAL.name());
 
         ApplicationDto applicationDto = ApplicationDto.builder()
             .id(applicationId)
             .status(Status.valueOf(application.getStatus()))
             .build();
-        when(applicationRepository.findById(applicationId)).thenReturn(application);
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(application);
         when(applicationMapper.toDto(application)).thenReturn(applicationDto);
 
         // Act
-        ApplicationDto result = applicationService.getApplication(applicationId);
+        ApplicationDto result = applicationService.getApplication(applicationId, managerId);
 
         // Assert
         assertNotNull(result);

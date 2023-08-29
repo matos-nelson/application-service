@@ -2,6 +2,7 @@ package org.rent.circle.application.api.persistence.repository;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.quarkus.test.TestTransaction;
@@ -22,7 +23,31 @@ public class ApplicationRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findMaintenanceRequests_WhenRequestsDoNotExist_ShouldReturnNoRequests() {
+    public void findApplication_WhenApplicationDoesNotExist_ShouldReturnNull() {
+        // Arrange
+
+        // Act
+        Application result = applicationRepository.findApplication(123L, 456L);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    @TestTransaction
+    public void findApplication_WhenApplicationDoesExist_ShouldReturnApplication() {
+        // Arrange
+
+        // Act
+        Application result = applicationRepository.findApplication(100L, 2L);
+
+        // Assert
+        assertNotNull(result);
+    }
+
+    @Test
+    @TestTransaction
+    public void findApplications_WhenApplicationsDoNotExist_ShouldReturnNoApplications() {
         // Arrange
 
         // Act
@@ -35,7 +60,7 @@ public class ApplicationRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findMaintenanceRequests_WhenRequestsDoExist_ShouldReturnRequests() {
+    public void findApplications_WhenApplicationsDoExist_ShouldReturnApplications() {
         // Arrange
 
         // Act
@@ -48,7 +73,7 @@ public class ApplicationRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findMaintenanceRequests_WhenRequestsDoNotExistInPage_ShouldReturnNoRequests() {
+    public void findApplications_WhenApplicationsDoNotExistInPage_ShouldReturnNoApplications() {
         // Arrange
 
         // Act

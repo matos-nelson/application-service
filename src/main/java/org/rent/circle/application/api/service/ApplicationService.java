@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
+import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
 import org.rent.circle.application.api.persistence.repository.ApplicationRepository;
@@ -30,21 +31,21 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void updateApplicationStatus(Long applicationId, Status status, String note) {
+    public void updateApplicationStatus(Long applicationId, Long managerId, UpdateApplicationStatusDto updatedStatus) {
 
-        Application application = applicationRepository.findById(applicationId);
+        Application application = applicationRepository.findApplication(applicationId, managerId);
         if (application == null) {
             return;
         }
 
-        application.setStatus(status.name());
-        application.setNote(note);
+        application.setStatus(updatedStatus.getStatus().name());
+        application.setNote(updatedStatus.getNote());
 
         applicationRepository.persist(application);
     }
 
-    public ApplicationDto getApplication(Long id) {
-        Application application = applicationRepository.findById(id);
+    public ApplicationDto getApplication(Long id, Long managerId) {
+        Application application = applicationRepository.findApplication(id, managerId);
         return applicationMapper.toDto(application);
     }
 

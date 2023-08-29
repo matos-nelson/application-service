@@ -60,15 +60,16 @@ public class ApplicationServiceTest {
     public void updateApplicationStatus_WhenApplicationCantBeFound_ShouldReturn() {
         // Arrange
         Long applicationId = 1L;
+        Long managerId = 2L;
         UpdateApplicationStatusDto updateApplicationStatus = UpdateApplicationStatusDto.builder()
             .status(Status.APPROVED)
             .note("note")
             .build();
 
-        when(applicationRepository.findById(applicationId)).thenReturn(null);
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(null);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, updateApplicationStatus);
+        applicationService.updateApplicationStatus(applicationId, managerId, updateApplicationStatus);
 
         // Assert
         verify(applicationRepository, times(0)).persist((Application) Mockito.any());
@@ -78,6 +79,7 @@ public class ApplicationServiceTest {
     public void updateApplicationStatus_WhenApplicationIsFound_ShouldUpdateStatus() {
         // Arrange
         Long applicationId = 1L;
+        Long managerId = 2L;
         String note = "my note";
 
         Application application = new Application();
@@ -89,10 +91,10 @@ public class ApplicationServiceTest {
             .note(note)
             .build();
 
-        when(applicationRepository.findById(applicationId)).thenReturn(application);
+        when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(application);
 
         // Act
-        applicationService.updateApplicationStatus(applicationId, updateApplicationStatus);
+        applicationService.updateApplicationStatus(applicationId, managerId, updateApplicationStatus);
 
         // Assert
         assertEquals(Status.APPROVED.name(), application.getStatus());

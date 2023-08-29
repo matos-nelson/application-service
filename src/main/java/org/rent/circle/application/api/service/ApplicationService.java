@@ -31,9 +31,9 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void updateApplicationStatus(Long applicationId, UpdateApplicationStatusDto updatedStatus) {
+    public void updateApplicationStatus(Long applicationId, Long managerId, UpdateApplicationStatusDto updatedStatus) {
 
-        Application application = applicationRepository.findById(applicationId);
+        Application application = applicationRepository.findApplication(applicationId, managerId);
         if (application == null) {
             return;
         }

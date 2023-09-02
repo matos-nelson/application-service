@@ -8,7 +8,6 @@ import java.util.List;
 import org.rent.circle.application.api.persistence.model.Application;
 
 @ApplicationScoped
-
 public class ApplicationRepository implements PanacheRepository<Application> {
 
     public Application findApplication(Long id, Long managerId) {

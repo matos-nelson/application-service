@@ -23,7 +23,7 @@ public class ApplicantRepositoryTest {
         // Arrange
 
         // Act
-        long result = applicantRepository.getApplicantApplicationsStatusCount("email@email.com", Status.PENDING_APPROVAL);
+        long result = applicantRepository.getApplicantApplicationsStatusCount("email@email.com", Status.PENDING_APPROVAL.name());
 
         // Assert
         assertEquals(0, result);
@@ -35,7 +35,7 @@ public class ApplicantRepositoryTest {
         // Arrange
 
         // Act
-        long result = applicantRepository.getApplicantApplicationsStatusCount("john.doe@email.com", Status.PENDING_APPROVAL);
+        long result = applicantRepository.getApplicantApplicationsStatusCount("john.doe@email.com", Status.PENDING_APPROVAL.name());
 
         // Assert
         assertEquals(1, result);

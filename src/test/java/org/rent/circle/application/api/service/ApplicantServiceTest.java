@@ -1,0 +1,38 @@
+package org.rent.circle.application.api.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.mockito.InjectMock;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.Test;
+import org.rent.circle.application.api.enums.Status;
+import org.rent.circle.application.api.persistence.repository.ApplicantRepository;
+
+@QuarkusTest
+public class ApplicantServiceTest {
+
+    @InjectMock
+    ApplicantRepository applicantRepository;
+
+    @Inject
+    ApplicantService applicantService;
+
+    @Test
+    public void getApplicationStatusCount_WhenCalled_ShouldReturnCount() {
+        // Arrange
+        String email = "john.doe@email.com";
+        Status status = Status.PENDING_APPROVAL;
+        long count = 10;
+
+        when(applicantRepository.getApplicantApplicationsStatusCount(email, status.name())).thenReturn(count);
+
+        // Act
+        Long result = applicantService.getApplicationStatusCount(email, status);
+
+        // Assert
+        assertEquals(count, result);
+    }
+
+}

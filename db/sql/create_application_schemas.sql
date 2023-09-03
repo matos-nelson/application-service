@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS application (
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY manager_id_idx (manager_id),
   KEY property_id_idx (property_id),
-  KEY applicant_id_idx (applicant_id)
+  KEY applicant_id_idx (applicant_id),
+  INDEX status_idx (status)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS applicant (
@@ -23,7 +24,8 @@ CREATE TABLE IF NOT EXISTS applicant (
   recent_eviction BOOL NOT NULL,
   eviction_explanation varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX email_idx (email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS residential_history (

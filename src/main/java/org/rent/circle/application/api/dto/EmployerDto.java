@@ -1,5 +1,6 @@
 package org.rent.circle.application.api.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -41,7 +42,6 @@ public class EmployerDto {
     @NotBlank
     private String supervisorName;
 
-    @NotNull
-    @NotBlank
+    @Email
     private String supervisorEmail;
 }

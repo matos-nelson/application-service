@@ -1,6 +1,7 @@
 package org.rent.circle.application.api.dto;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,8 +32,7 @@ public class ApplicantDto {
 
     private Suffix suffix;
 
-    @NotNull
-    @NotBlank
+    @Email
     private String email;
 
     @NotNull

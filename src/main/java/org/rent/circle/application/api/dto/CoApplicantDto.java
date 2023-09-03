@@ -1,5 +1,6 @@
 package org.rent.circle.application.api.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,7 @@ public class CoApplicantDto {
     @NotBlank
     private String lastName;
 
-    @NotNull
-    @NotBlank
+    @Email
     private String email;
 
     private String phone;

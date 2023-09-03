@@ -47,7 +47,7 @@ public class ApplicationResourceTest {
             .monthlyRent(BigDecimal.ONE)
             .landlordName("Landlord name")
             .landlordPhone("1231231234")
-            .landlordEmail("email")
+            .landlordEmail("landlord@email.com")
             .build();
 
         IdentificationDto identificationDto = IdentificationDto.builder()
@@ -63,12 +63,12 @@ public class ApplicationResourceTest {
             .positionHeld("Position")
             .yearsWorked((byte) 2)
             .supervisorName("supervisor name")
-            .supervisorEmail("supervisor email")
+            .supervisorEmail("supervisor@email.com")
             .build();
         ApplicantDto applicantDto = ApplicantDto.builder()
             .firstName("First")
             .lastName("Last")
-            .email("email")
+            .email("email@email.com")
             .phone("1231231234")
             .residentialHistories(Collections.singletonList(residentialHistoryDto))
             .identification(identificationDto)

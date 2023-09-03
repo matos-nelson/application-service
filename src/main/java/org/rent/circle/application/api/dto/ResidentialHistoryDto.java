@@ -1,5 +1,6 @@
 package org.rent.circle.application.api.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -45,8 +46,7 @@ public class ResidentialHistoryDto {
     @NotBlank
     private String landlordPhone;
 
-    @NotNull
-    @NotBlank
+    @Email
     private String landlordEmail;
 
     private String leaveReason;

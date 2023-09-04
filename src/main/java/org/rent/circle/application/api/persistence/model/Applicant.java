@@ -53,29 +53,36 @@ public class Applicant extends BaseModel {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "applicant")
     private Application application;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<ResidentialHistory> residentialHistories;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<PersonalReference> personalReferences;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<CoApplicant> coApplicants;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<Occupant> occupants;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<Pet> pets;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "identification_id")
     private Identification identification;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "emergency_contact_id")
     private EmergencyContact emergencyContact;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<Vehicle> vehicles;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

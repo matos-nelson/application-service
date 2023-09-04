@@ -12,7 +12,6 @@ INSERT INTO residential_history(id, applicant_id, address_id, current_residence,
 values (300, 200, 1, 1, 'JANUARY', 2000, 'MARCH', 2010, 1500.00, 'Landlord Name', 'landlord@email.com', '4561237890');
 
 -- applicant 2 info
-
 INSERT INTO employer(id, address_id, name, phone, monthly_salary, position_held, years_worked, supervisor_name, supervisor_email)
 VALUES(400, 1, 'Home Depot', '789-012-4567', 1000.00, 'Sales', 10, 'Supervisor Name', 'supervisor@email.com');
 

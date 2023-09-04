@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS applicant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
   employer_id bigint NOT NULL,
   identification_id bigint NOT NULL,
+  emergency_contact_id bigint NOT NULL,
   first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   last_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   middle_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -27,8 +28,9 @@ CREATE TABLE IF NOT EXISTS applicant (
   eviction_explanation varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  KEY identification_id_idx (identification_id),
   KEY employer_id_idx (employer_id),
+  KEY identification_id_idx (identification_id),
+  KEY emergency_contact_id_idx (emergency_contact_id),
   INDEX email_idx (email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -111,14 +113,12 @@ CREATE TABLE IF NOT EXISTS identification (
 
 CREATE TABLE IF NOT EXISTS emergency_contact (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  applicant_id bigint NOT NULL,
   name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   relationship varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   phone varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   email varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  KEY applicant_id_idx (applicant_id)
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS vehicle (

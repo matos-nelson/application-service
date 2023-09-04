@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS application (
 
 CREATE TABLE IF NOT EXISTS applicant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
+  employer_id bigint NOT NULL,
+  identification_id bigint NOT NULL,
   first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   last_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   middle_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -25,6 +27,8 @@ CREATE TABLE IF NOT EXISTS applicant (
   eviction_explanation varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY identification_id_idx (identification_id),
+  KEY employer_id_idx (employer_id),
   INDEX email_idx (email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -97,14 +101,12 @@ CREATE TABLE IF NOT EXISTS pet (
 
 CREATE TABLE IF NOT EXISTS identification (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  applicant_id bigint NOT NULL,
   date_of_birth date NOT NULL,
   ssn varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
   government_issued_id varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   issued_state_territory varchar(3) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  KEY applicant_id_idx (applicant_id)
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS emergency_contact (
@@ -134,7 +136,6 @@ CREATE TABLE IF NOT EXISTS vehicle (
 
 CREATE TABLE IF NOT EXISTS employer (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  applicant_id bigint NOT NULL,
   address_id bigint NOT NULL,
   name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   phone varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
@@ -145,7 +146,6 @@ CREATE TABLE IF NOT EXISTS employer (
   supervisor_email varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  KEY applicant_id_idx (applicant_id),
   KEY address_id_idx (address_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -27,16 +27,8 @@ public interface ApplicationMapper {
             return;
         }
 
-        if (applicant.getEmployer() != null) {
-            applicant.getEmployer().setApplicant(applicant);
-        }
-
         if (applicant.getEmergencyContact() != null) {
             applicant.getEmergencyContact().setApplicant(applicant);
-        }
-
-        if (applicant.getIdentification() != null) {
-            applicant.getIdentification().setApplicant(applicant);
         }
 
         if (applicant.getResidentialHistories() != null) {
@@ -62,10 +54,5 @@ public interface ApplicationMapper {
         if (applicant.getVehicles() != null) {
             applicant.getVehicles().forEach(r -> r.setApplicant(applicant));
         }
-
-        if (applicant.getAdditionalIncomeSources() != null) {
-            applicant.getAdditionalIncomeSources().forEach(r -> r.setApplicant(applicant));
-        }
-
     }
 }

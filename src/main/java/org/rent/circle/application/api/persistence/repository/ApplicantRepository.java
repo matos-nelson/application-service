@@ -12,8 +12,8 @@ public class ApplicantRepository implements PanacheRepository<Applicant> {
         Parameters queryParams = Parameters.with("email", email)
             .and("status", status);
 
-        return count("from Applicant a "
-            + "left join a.application app "
-            + "where app.status = :status and email = :email", queryParams);
+        return count("from Application app "
+            + "left join app.primaryApplicant pa "
+            + "where app.status = :status and pa.email = :email", queryParams);
     }
 }

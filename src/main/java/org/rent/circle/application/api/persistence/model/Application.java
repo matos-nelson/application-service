@@ -40,5 +40,5 @@ public class Application extends BaseModel {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "applicant_id", referencedColumnName = "id")
-    private Applicant applicant;
+    private PrimaryApplicant primaryApplicant;
 }

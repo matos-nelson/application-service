@@ -17,21 +17,35 @@ CREATE TABLE IF NOT EXISTS applicant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
   employer_id bigint NOT NULL,
   identification_id bigint NOT NULL,
-  emergency_contact_id bigint NOT NULL,
   first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   last_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   middle_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   suffix varchar(4) COLLATE utf8mb4_general_ci DEFAULT NULL,
   email varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   phone varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  recent_eviction BOOL NOT NULL,
-  eviction_explanation varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY employer_id_idx (employer_id),
   KEY identification_id_idx (identification_id),
-  KEY emergency_contact_id_idx (emergency_contact_id),
   INDEX email_idx (email)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS primary_applicant (
+  id bigint KEY NOT NULL,
+  emergency_contact_id bigint,
+  recent_eviction BOOL NOT NULL,
+  eviction_explanation varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY emergency_contact_id_idx (emergency_contact_id)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS co_signer (
+  id bigint KEY NOT NULL,
+  address_id bigint NOT NULL,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY address_id_idx (address_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS residential_history (

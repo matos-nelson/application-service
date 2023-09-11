@@ -18,7 +18,7 @@ import org.rent.circle.application.api.enums.Suffix;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicantDto {
+public class PrimaryApplicantDto {
 
     @NotNull
     @NotBlank

@@ -21,10 +21,10 @@ import java.util.List;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.rent.circle.application.api.dto.ApplicantDto;
 import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.EmployerDto;
 import org.rent.circle.application.api.dto.IdentificationDto;
+import org.rent.circle.application.api.dto.PrimaryApplicantDto;
 import org.rent.circle.application.api.dto.ResidentialHistoryDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
 import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
@@ -65,7 +65,7 @@ public class ApplicationResourceTest {
             .supervisorName("supervisor name")
             .supervisorEmail("supervisor@email.com")
             .build();
-        ApplicantDto applicantDto = ApplicantDto.builder()
+        PrimaryApplicantDto primaryApplicantDto = PrimaryApplicantDto.builder()
             .firstName("First")
             .lastName("Last")
             .email("email@email.com")
@@ -78,7 +78,7 @@ public class ApplicationResourceTest {
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
             .managerId(2L)
-            .applicant(applicantDto)
+            .primaryApplicant(primaryApplicantDto)
             .build();
 
         // Act
@@ -175,21 +175,21 @@ public class ApplicationResourceTest {
                 "managerId", is(2),
                 "note", is(nullValue()),
                 "status", is("PENDING_APPROVAL"),
-                "applicant.firstName", is("First"),
-                "applicant.lastName", is("Last"),
-                "applicant.email", is("first.last@email.com"),
-                "applicant.phone", is("1234567890"),
-                "applicant.recentlyEvicted", is(false),
-                "applicant.residentialHistories", is(Matchers.hasSize(1)),
-                "applicant.employer", is(notNullValue()),
-                "applicant.identification", is(notNullValue()),
-                "applicant.personalReferences", is(Matchers.hasSize(0)),
-                "applicant.coApplicants", is(Matchers.hasSize(0)),
-                "applicant.occupants", is(Matchers.hasSize(0)),
-                "applicant.pets", is(Matchers.hasSize(0)),
-                "applicant.emergencyContact", is(nullValue()),
-                "applicant.vehicles", is(Matchers.hasSize(0)),
-                "applicant.additionalIncomeSources", is(Matchers.hasSize(0))
+                "primaryApplicant.firstName", is("First"),
+                "primaryApplicant.lastName", is("Last"),
+                "primaryApplicant.email", is("first.last@email.com"),
+                "primaryApplicant.phone", is("1234567890"),
+                "primaryApplicant.recentlyEvicted", is(false),
+                "primaryApplicant.residentialHistories", is(Matchers.hasSize(1)),
+                "primaryApplicant.employer", is(notNullValue()),
+                "primaryApplicant.identification", is(notNullValue()),
+                "primaryApplicant.personalReferences", is(Matchers.hasSize(0)),
+                "primaryApplicant.coApplicants", is(Matchers.hasSize(0)),
+                "primaryApplicant.occupants", is(Matchers.hasSize(0)),
+                "primaryApplicant.pets", is(Matchers.hasSize(0)),
+                "primaryApplicant.emergencyContact", is(nullValue()),
+                "primaryApplicant.vehicles", is(Matchers.hasSize(0)),
+                "primaryApplicant.additionalIncomeSources", is(Matchers.hasSize(0))
             );
     }
 
@@ -230,7 +230,7 @@ public class ApplicationResourceTest {
         assertEquals(2L, result.get(0).getManagerId());
         assertEquals(Status.PENDING_APPROVAL, result.get(0).getStatus());
         assertNull(result.get(0).getNote());
-        assertNotNull(result.get(0).getApplicant());
+        assertNotNull(result.get(0).getPrimaryApplicant());
     }
 
     @Test

@@ -23,5 +23,5 @@ public class SaveApplicationDto {
 
     @NotNull
     @Valid
-    private ApplicantDto applicant;
+    private PrimaryApplicantDto primaryApplicant;
 }

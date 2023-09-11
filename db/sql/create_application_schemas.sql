@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS application (
   manager_id bigint NOT NULL,
   property_id bigint NOT NULL,
   applicant_id bigint NOT NULL,
+  co_signer_id bigint DEFAULT NULL,
   status varchar(20) NOT NULL,
   note text DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -10,6 +11,7 @@ CREATE TABLE IF NOT EXISTS application (
   KEY manager_id_idx (manager_id),
   KEY property_id_idx (property_id),
   KEY applicant_id_idx (applicant_id),
+  KEY co_signer_id_idx (co_signer_id),
   INDEX status_idx (status)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

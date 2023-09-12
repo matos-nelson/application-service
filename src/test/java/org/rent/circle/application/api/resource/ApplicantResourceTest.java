@@ -19,6 +19,7 @@ public class ApplicantResourceTest {
     @Test
     public void GET_getApplicationStatusCount_WhenFailsValidation_ShouldReturnBadRequest() {
         // Arrange
+        long managerId = 1L;
         String email = "john.doe";
         String status = Status.PENDING_APPROVAL.name();
 
@@ -26,7 +27,7 @@ public class ApplicantResourceTest {
         // Assert
         given()
             .when()
-            .get("/application/status/count?email=" + email + "&status=" + status)
+            .get("/application/manager/" + managerId + "/status/count?email=" + email + "&status=" + status)
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
@@ -34,6 +35,7 @@ public class ApplicantResourceTest {
     @Test
     public void GET_getApplicationStatusCount_WhenInvoked_ShouldReturnCount() {
         // Arrange
+        long managerId = 3L;
         String email = "john.doe@email.com";
         String status = Status.PENDING_APPROVAL.name();
 
@@ -41,7 +43,7 @@ public class ApplicantResourceTest {
         // Assert
         given()
             .when()
-            .get("/application/status/count?email=" + email + "&status=" + status)
+            .get("/application/manager/" + managerId + "/status/count?email=" + email + "&status=" + status)
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body(is("1"));

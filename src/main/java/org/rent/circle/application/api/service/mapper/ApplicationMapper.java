@@ -14,8 +14,6 @@ public interface ApplicationMapper {
     @Mapping(target = "primaryApplicant", source = "primaryApplicant")
     Application toModel(SaveApplicationDto application);
 
-    //PrimaryApplicant temp(PrimaryApplicantDto primaryApplicantDto);
-
     ApplicationDto toDto(Application application);
 
     List<ApplicationDto> toDtoList(List<Application> maintenanceRequests);

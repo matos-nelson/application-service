@@ -47,9 +47,6 @@ public class Applicant extends BaseModel {
     @Column(name = "phone")
     private String phone;
 
-    //@OneToOne(cascade = CascadeType.ALL, mappedBy = "applicant")
-    //private Application application;
-
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "identification_id")
     private Identification identification;

@@ -16,12 +16,15 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.rent.circle.application.api.dto.ApplicationDto;
+import org.rent.circle.application.api.dto.CoSignerDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
 import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
+import org.rent.circle.application.api.persistence.model.CoSigner;
 import org.rent.circle.application.api.persistence.repository.ApplicationRepository;
 import org.rent.circle.application.api.service.mapper.ApplicationMapper;
+import org.rent.circle.application.api.service.mapper.CoSignerMapper;
 
 @QuarkusTest
 public class ApplicationServiceTest {
@@ -31,6 +34,9 @@ public class ApplicationServiceTest {
 
     @InjectMock
     ApplicationMapper applicationMapper;
+
+    @InjectMock
+    CoSignerMapper coSignerMapper;
 
     @Inject
     ApplicationService applicationService;
@@ -174,5 +180,47 @@ public class ApplicationServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
+    }
+
+    @Test
+    public void saveCoSigner_WhenApplicationCantBeFound_ShouldReturnNull() {
+        // Arrange
+        long managerId = 1L;
+        String applicantEmail = "applicant@email.com";
+
+        CoSignerDto coSigner = CoSignerDto.builder().build();
+        when(applicationRepository.findApplicantsPendingApplication(managerId, applicantEmail)).thenReturn(null);
+
+        // Act
+        Long result = applicationService.saveCoSigner(managerId, applicantEmail, coSigner);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void saveCoSigner_WhenCalled_ShouldReturnCoSignerId() {
+        // Arrange
+        long managerId = 1L;
+        String applicantEmail = "applicant@email.com";
+
+        Application application = new Application();
+        application.setId(1L);
+
+        CoSignerDto coSignerDto = CoSignerDto.builder().build();
+
+        CoSigner coSigner = new CoSigner();
+        coSigner.setId(123L);
+
+        when(applicationRepository.findApplicantsPendingApplication(managerId, applicantEmail)).thenReturn(application);
+        when(coSignerMapper.toModel(coSignerDto)).thenReturn(coSigner);
+
+        // Act
+        Long result = applicationService.saveCoSigner(managerId, applicantEmail, coSignerDto);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(coSigner.getId(), result);
+        assertEquals(coSigner, application.getCoSigner());
     }
 }

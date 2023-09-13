@@ -23,7 +23,7 @@ public class ApplicationRepository implements PanacheRepository<Application> {
             .list();
     }
 
-    public Application findApplicantPendingApplication(long managerId, String email) {
+    public Application findApplicantsPendingApplication(long managerId, String email) {
         Parameters queryParams = Parameters.with("email", email)
             .and("managerId", managerId)
             .and("status", Status.PENDING_APPROVAL.name());

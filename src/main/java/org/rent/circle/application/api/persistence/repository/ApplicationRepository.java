@@ -5,6 +5,8 @@ import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.Optional;
+import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
 
 @ApplicationScoped
@@ -19,5 +21,18 @@ public class ApplicationRepository implements PanacheRepository<Application> {
         return find("managerId", managerId)
             .page(Page.of(page, pageSize))
             .list();
+    }
+
+    public Application findApplicantsPendingApplication(long managerId, String email) {
+        Parameters queryParams = Parameters.with("email", email)
+            .and("managerId", managerId)
+            .and("status", Status.PENDING_APPROVAL.name());
+
+        Optional<Application> result = find("from Application app "
+            + "left join app.primaryApplicant pa "
+            + "where app.managerId = :managerId and app.status = :status and pa.email = :email", queryParams)
+            .singleResultOptional();
+
+        return result.isPresent() ? result.get() : null;
     }
 }

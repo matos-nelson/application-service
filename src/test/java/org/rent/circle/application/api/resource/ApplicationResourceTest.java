@@ -21,12 +21,15 @@ import java.util.List;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.rent.circle.application.api.dto.ApplicantDto;
+import org.rent.circle.application.api.dto.AdditionalIncomeSourceDto;
 import org.rent.circle.application.api.dto.ApplicationDto;
+import org.rent.circle.application.api.dto.CoSignerDto;
 import org.rent.circle.application.api.dto.EmployerDto;
 import org.rent.circle.application.api.dto.IdentificationDto;
+import org.rent.circle.application.api.dto.PrimaryApplicantDto;
 import org.rent.circle.application.api.dto.ResidentialHistoryDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
+import org.rent.circle.application.api.dto.SaveCoSignerDto;
 import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
 import org.rent.circle.application.api.enums.Status;
 
@@ -65,7 +68,7 @@ public class ApplicationResourceTest {
             .supervisorName("supervisor name")
             .supervisorEmail("supervisor@email.com")
             .build();
-        ApplicantDto applicantDto = ApplicantDto.builder()
+        PrimaryApplicantDto primaryApplicantDto = PrimaryApplicantDto.builder()
             .firstName("First")
             .lastName("Last")
             .email("email@email.com")
@@ -78,7 +81,7 @@ public class ApplicationResourceTest {
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
             .managerId(2L)
-            .applicant(applicantDto)
+            .primaryApplicant(primaryApplicantDto)
             .build();
 
         // Act
@@ -175,21 +178,21 @@ public class ApplicationResourceTest {
                 "managerId", is(2),
                 "note", is(nullValue()),
                 "status", is("PENDING_APPROVAL"),
-                "applicant.firstName", is("First"),
-                "applicant.lastName", is("Last"),
-                "applicant.email", is("first.last@email.com"),
-                "applicant.phone", is("1234567890"),
-                "applicant.recentlyEvicted", is(false),
-                "applicant.residentialHistories", is(Matchers.hasSize(1)),
-                "applicant.employer", is(notNullValue()),
-                "applicant.identification", is(notNullValue()),
-                "applicant.personalReferences", is(Matchers.hasSize(0)),
-                "applicant.coApplicants", is(Matchers.hasSize(0)),
-                "applicant.occupants", is(Matchers.hasSize(0)),
-                "applicant.pets", is(Matchers.hasSize(0)),
-                "applicant.emergencyContact", is(nullValue()),
-                "applicant.vehicles", is(Matchers.hasSize(0)),
-                "applicant.additionalIncomeSources", is(Matchers.hasSize(0))
+                "primaryApplicant.firstName", is("First"),
+                "primaryApplicant.lastName", is("Last"),
+                "primaryApplicant.email", is("first.last@email.com"),
+                "primaryApplicant.phone", is("1234567890"),
+                "primaryApplicant.recentlyEvicted", is(false),
+                "primaryApplicant.residentialHistories", is(Matchers.hasSize(1)),
+                "primaryApplicant.employer", is(notNullValue()),
+                "primaryApplicant.identification", is(notNullValue()),
+                "primaryApplicant.personalReferences", is(Matchers.hasSize(0)),
+                "primaryApplicant.coApplicants", is(Matchers.hasSize(0)),
+                "primaryApplicant.occupants", is(Matchers.hasSize(0)),
+                "primaryApplicant.pets", is(Matchers.hasSize(0)),
+                "primaryApplicant.emergencyContact", is(nullValue()),
+                "primaryApplicant.vehicles", is(Matchers.hasSize(0)),
+                "primaryApplicant.additionalIncomeSources", is(Matchers.hasSize(0))
             );
     }
 
@@ -230,7 +233,7 @@ public class ApplicationResourceTest {
         assertEquals(2L, result.get(0).getManagerId());
         assertEquals(Status.PENDING_APPROVAL, result.get(0).getStatus());
         assertNull(result.get(0).getNote());
-        assertNotNull(result.get(0).getApplicant());
+        assertNotNull(result.get(0).getPrimaryApplicant());
     }
 
     @Test
@@ -242,6 +245,125 @@ public class ApplicationResourceTest {
         given()
             .when()
             .get("/manager/123?page=0")
+            .then()
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void PUT_WhenGivenAValidRequestToSaveCoSigner_ShouldReturnOk() {
+        // Arrange
+        IdentificationDto identificationDto = IdentificationDto.builder()
+            .dateOfBirth(LocalDate.now())
+            .ssn("123-45-6789")
+            .build();
+
+        EmployerDto employerDto = EmployerDto.builder()
+            .addressId(1L)
+            .name("name")
+            .phone("1231231234")
+            .monthlySalary(BigDecimal.ONE)
+            .positionHeld("Position")
+            .yearsWorked((byte) 2)
+            .supervisorName("supervisor name")
+            .supervisorEmail("supervisor@email.com")
+            .build();
+
+        AdditionalIncomeSourceDto adi = AdditionalIncomeSourceDto.builder()
+            .name("CoSigner Side Hustle")
+            .monthlyIncome(BigDecimal.valueOf(1000))
+            .build();
+
+        CoSignerDto coSignerDto = CoSignerDto.builder()
+            .addressId(1L)
+            .firstName("First")
+            .lastName("Last")
+            .email("email@email.com")
+            .phone("1231231234")
+            .identification(identificationDto)
+            .employer(employerDto)
+            .additionalIncomeSources(List.of(adi))
+            .build();
+
+        SaveCoSignerDto saveCoSignerDto = SaveCoSignerDto.builder()
+            .applicantEmail("tom.jerry@email.com")
+            .coSigner(coSignerDto)
+            .build();
+
+        // Act
+        // Assert
+        given()
+            .contentType("application/json")
+            .body(saveCoSignerDto)
+            .when()
+            .put("/cosigner/manager/3")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body(is("1"));
+    }
+
+    @Test
+    public void PUT_WhenGivenAValidRequestToSaveCoSignerButApplicationDoesNotExist_ShouldReturnNoContent() {
+        // Arrange
+        IdentificationDto identificationDto = IdentificationDto.builder()
+            .dateOfBirth(LocalDate.now())
+            .ssn("123-45-6789")
+            .build();
+
+        EmployerDto employerDto = EmployerDto.builder()
+            .addressId(1L)
+            .name("name")
+            .phone("1231231234")
+            .monthlySalary(BigDecimal.ONE)
+            .positionHeld("Position")
+            .yearsWorked((byte) 2)
+            .supervisorName("supervisor name")
+            .supervisorEmail("supervisor@email.com")
+            .build();
+
+        AdditionalIncomeSourceDto adi = AdditionalIncomeSourceDto.builder()
+            .name("CoSigner Side Hustle")
+            .monthlyIncome(BigDecimal.valueOf(1000))
+            .build();
+
+        CoSignerDto coSignerDto = CoSignerDto.builder()
+            .addressId(1L)
+            .firstName("First")
+            .lastName("Last")
+            .email("email@email.com")
+            .phone("1231231234")
+            .identification(identificationDto)
+            .employer(employerDto)
+            .additionalIncomeSources(List.of(adi))
+            .build();
+
+        SaveCoSignerDto saveCoSignerDto = SaveCoSignerDto.builder()
+            .applicantEmail("tom.jerry@email.com")
+            .coSigner(coSignerDto)
+            .build();
+
+        // Act
+        // Assert
+        given()
+            .contentType("application/json")
+            .body(saveCoSignerDto)
+            .when()
+            .put("/cosigner/manager/3131")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void PUT_WhenGivenAnInValidRequestToSaveCoSigner_ShouldReturnBadRequest() {
+        // Arrange
+        SaveCoSignerDto saveCoSignerDto = SaveCoSignerDto.builder().build();
+
+        // Act
+        // Assert
+        given()
+            .contentType("application/json")
+            .body(saveCoSignerDto)
+            .when()
+            .put("/cosigner/manager/3")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }

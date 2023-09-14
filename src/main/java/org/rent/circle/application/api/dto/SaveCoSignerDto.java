@@ -1,6 +1,7 @@
 package org.rent.circle.application.api.dto;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,15 +14,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaveApplicationDto {
+public class SaveCoSignerDto {
 
-    @NotNull
-    private Long managerId;
-
-    @NotNull
-    private Long propertyId;
+    @Email
+    private String applicantEmail;
 
     @NotNull
     @Valid
-    private PrimaryApplicantDto primaryApplicant;
+    private CoSignerDto coSigner;
 }

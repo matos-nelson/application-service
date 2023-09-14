@@ -6,12 +6,15 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.application.api.dto.ApplicationDto;
+import org.rent.circle.application.api.dto.CoSignerDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
 import org.rent.circle.application.api.dto.UpdateApplicationStatusDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
+import org.rent.circle.application.api.persistence.model.CoSigner;
 import org.rent.circle.application.api.persistence.repository.ApplicationRepository;
 import org.rent.circle.application.api.service.mapper.ApplicationMapper;
+import org.rent.circle.application.api.service.mapper.CoSignerMapper;
 
 @AllArgsConstructor
 @ApplicationScoped
@@ -19,6 +22,7 @@ import org.rent.circle.application.api.service.mapper.ApplicationMapper;
 public class ApplicationService {
 
     private final ApplicationMapper applicationMapper;
+    private final CoSignerMapper coSignerMapper;
     private final ApplicationRepository applicationRepository;
 
     @Transactional
@@ -53,5 +57,19 @@ public class ApplicationService {
         List<Application> applications = applicationRepository.findApplications(managerId, page, pageSize);
         return applicationMapper.toDtoList(applications);
     }
-}
 
+    @Transactional
+    public Long saveCoSigner(long managerId, String applicantEmail, CoSignerDto coSignerInfo) {
+
+        Application application = applicationRepository.findApplicantsPendingApplication(managerId, applicantEmail);
+        if (application == null) {
+            return null;
+        }
+
+        CoSigner coSigner = coSignerMapper.toModel(coSignerInfo);
+        application.setCoSigner(coSigner);
+
+        applicationRepository.persistAndFlush(application);
+        return coSigner.getId();
+    }
+}

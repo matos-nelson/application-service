@@ -19,5 +19,6 @@ public class ApplicationDto {
     private Long propertyId;
     private Status status;
     private String note;
-    private ApplicantDto applicant;
+    private PrimaryApplicantDto primaryApplicant;
+    private CoSignerDto coSigner;
 }

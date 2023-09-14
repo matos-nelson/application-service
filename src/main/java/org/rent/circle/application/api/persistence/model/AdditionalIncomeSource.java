@@ -2,12 +2,9 @@ package org.rent.circle.application.api.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -32,7 +29,6 @@ public class AdditionalIncomeSource extends BaseModel {
     @Column(name = "monthly_income")
     private BigDecimal monthlyIncome;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "applicant_id")
-    private Applicant applicant;
+    @Column(name = "applicant_id", insertable = false, updatable = false, nullable = false)
+    private Long applicantId;
 }

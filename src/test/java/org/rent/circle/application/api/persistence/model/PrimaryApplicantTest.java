@@ -1,20 +1,21 @@
-package org.rent.circle.application.api.dto;
+package org.rent.circle.application.api.persistence.model;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.force66.beantester.BeanTester;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-public class ApplicantDtoTest {
+public class PrimaryApplicantTest {
 
     @Test
-    public void ApplicantDto_SettersAndGetters_ShouldWork() {
+    public void PrimaryApplicant_SettersAndGetters_ShouldWork() {
         // Arrange
         BeanTester beanTester = new BeanTester();
 
         // Act
-        beanTester.testBean(ApplicantDto.class);
+        beanTester.testBean(PrimaryApplicant.class);
 
         // Assert
+
     }
 }

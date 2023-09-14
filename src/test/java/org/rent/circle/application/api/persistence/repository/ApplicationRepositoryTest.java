@@ -83,4 +83,28 @@ public class ApplicationRepositoryTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
+
+    @Test
+    @TestTransaction
+    public void findApplicantsPendingApplication_WhenApplicationDoesNotExist_ShouldReturnNull() {
+        // Arrange
+
+        // Act
+        Application result = applicationRepository.findApplicantsPendingApplication(3L, "nonehere@gmail.com");
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    @TestTransaction
+    public void findApplicantsPendingApplication_WhenApplicationsDoExist_ShouldReturnApplication() {
+        // Arrange
+
+        // Act
+        Application result = applicationRepository.findApplicantsPendingApplication(3L, "john.doe@email.com");
+
+        // Assert
+        assertNotNull(result);
+    }
 }

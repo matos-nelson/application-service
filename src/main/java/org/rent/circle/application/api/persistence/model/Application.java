@@ -40,5 +40,9 @@ public class Application extends BaseModel {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "applicant_id", referencedColumnName = "id")
-    private Applicant applicant;
+    private PrimaryApplicant primaryApplicant;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "co_signer_id", referencedColumnName = "id")
+    private CoSigner coSigner;
 }

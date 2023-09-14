@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -23,8 +24,9 @@ public class ApplicantResource {
     private final ApplicantService applicantService;
 
     @GET
-    @Path("/application/status/count")
-    public Long getApplicationStatusCount(@Email @QueryParam("email") String email, @NotNull @QueryParam("status") Status status) {
-        return applicantService.getApplicationStatusCount(email, status);
+    @Path("/application/manager/{managerId}/status/count")
+    public Long getApplicationStatusCount(@NotNull @PathParam("managerId") long managerId,
+        @Email @QueryParam("email") String email, @NotNull @QueryParam("status") Status status) {
+        return applicantService.getApplicationStatusCount(managerId, email, status);
     }
 }

@@ -20,4 +20,5 @@ public class ApplicationDto {
     private Status status;
     private String note;
     private PrimaryApplicantDto primaryApplicant;
+    private CoSignerDto coSigner;
 }

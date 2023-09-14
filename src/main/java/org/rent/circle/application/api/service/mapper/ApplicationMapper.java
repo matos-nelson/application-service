@@ -14,6 +14,7 @@ public interface ApplicationMapper {
     @Mapping(target = "primaryApplicant", source = "primaryApplicant")
     Application toModel(SaveApplicationDto application);
 
+    @Mapping(target = "coSigner", source = "coSigner")
     ApplicationDto toDto(Application application);
 
     List<ApplicationDto> toDtoList(List<Application> maintenanceRequests);

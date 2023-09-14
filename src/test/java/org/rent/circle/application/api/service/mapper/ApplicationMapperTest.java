@@ -30,6 +30,7 @@ import org.rent.circle.application.api.enums.Suffix;
 import org.rent.circle.application.api.persistence.model.AdditionalIncomeSource;
 import org.rent.circle.application.api.persistence.model.Application;
 import org.rent.circle.application.api.persistence.model.CoApplicant;
+import org.rent.circle.application.api.persistence.model.CoSigner;
 import org.rent.circle.application.api.persistence.model.EmergencyContact;
 import org.rent.circle.application.api.persistence.model.Employer;
 import org.rent.circle.application.api.persistence.model.Identification;
@@ -449,7 +450,7 @@ public class ApplicationMapperTest {
     }
 
     @Test
-    public void toDto_WhenGivenAnApplicationWithApplicant_ShouldMap() {
+    public void toDto_WhenGivenAnApplicationWithPrimaryApplicant_ShouldMap() {
         // Arrange
         PrimaryApplicant primaryApplicant = new PrimaryApplicant();
         primaryApplicant.setFirstName("first");
@@ -775,6 +776,124 @@ public class ApplicationMapperTest {
         assertNotNull(result.getPrimaryApplicant().getAdditionalIncomeSources());
         assertEquals(additionalIncomeSource.getName(), result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getName());
         assertEquals(additionalIncomeSource.getMonthlyIncome(), result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getMonthlyIncome());
+    }
+
+    @Test
+    public void toDto_WhenGivenAnApplicationWithCoSigner_ShouldMap() {
+        // Arrange
+        CoSigner coSigner = new CoSigner();
+        coSigner.setAddressId(1L);
+        coSigner.setFirstName("first");
+        coSigner.setLastName("last");
+        coSigner.setMiddleName("middle");
+        coSigner.setSuffix("JR");
+        coSigner.setEmail("applicant@email.com");
+        coSigner.setPhone("1234567890");
+
+        Application application = new Application();
+        application.setCoSigner(coSigner);
+
+        // Act
+        ApplicationDto result = applicationMapper.toDto(application);
+
+        // Assert
+        assertNotNull(result);
+        assertNotNull(result.getCoSigner());
+        assertEquals(coSigner.getFirstName(), result.getCoSigner().getFirstName());
+        assertEquals(coSigner.getLastName(), result.getCoSigner().getLastName());
+        assertEquals(coSigner.getMiddleName(), result.getCoSigner().getMiddleName());
+        assertEquals(coSigner.getSuffix(), result.getCoSigner().getSuffix().toString());
+        assertEquals(coSigner.getEmail(), result.getCoSigner().getEmail());
+        assertEquals(coSigner.getPhone(), result.getCoSigner().getPhone());
+        assertEquals(coSigner.getAddressId(), result.getCoSigner().getAddressId());
+    }
+
+    @Test
+    public void toDto_WhenGivenAnApplicationWithCoSignerAndEmployer_ShouldMap() {
+        // Arrange
+        Employer employer = new Employer();
+        employer.setAddressId(1L);
+        employer.setName("Employer Name");
+        employer.setPhone("1234567890");
+        employer.setMonthlySalary(BigDecimal.valueOf(123.3));
+        employer.setPositionHeld("Position");
+        employer.setYearsWorked((byte) 10);
+        employer.setSupervisorName("Supervisor Name");
+        employer.setSupervisorEmail("supervisor@email.com");
+
+        CoSigner coSigner = new CoSigner();
+        coSigner.setEmployer(employer);
+
+        Application application = new Application();
+        application.setCoSigner(coSigner);
+
+        // Act
+        ApplicationDto result = applicationMapper.toDto(application);
+
+        // Assert
+        assertNotNull(result);
+        assertNotNull(result.getCoSigner());
+        assertNotNull(result.getCoSigner().getEmployer());
+        assertEquals(employer.getAddressId(), result.getCoSigner().getEmployer().getAddressId());
+        assertEquals(employer.getName(), result.getCoSigner().getEmployer().getName());
+        assertEquals(employer.getPhone(), result.getCoSigner().getEmployer().getPhone());
+        assertEquals(employer.getMonthlySalary(), result.getCoSigner().getEmployer().getMonthlySalary());
+        assertEquals(employer.getPositionHeld(), result.getCoSigner().getEmployer().getPositionHeld());
+        assertEquals(employer.getYearsWorked(), result.getCoSigner().getEmployer().getYearsWorked());
+        assertEquals(employer.getSupervisorName(), result.getCoSigner().getEmployer().getSupervisorName());
+        assertEquals(employer.getSupervisorEmail(), result.getCoSigner().getEmployer().getSupervisorEmail());
+    }
+
+    @Test
+    public void toDto_WhenGivenAnApplicationWithCoSignerAndAdditionalIncomeSource_ShouldMap() {
+        // Arrange
+        AdditionalIncomeSource additionalIncomeSource = new AdditionalIncomeSource();
+        additionalIncomeSource.setName("Additional Income");
+        additionalIncomeSource.setMonthlyIncome(BigDecimal.valueOf(567.32));
+
+        CoSigner coSigner = new CoSigner();
+        coSigner.setAdditionalIncomeSources(Collections.singletonList(additionalIncomeSource));
+
+        Application application = new Application();
+        application.setCoSigner(coSigner);
+
+        // Act
+        ApplicationDto result = applicationMapper.toDto(application);
+
+        // Assert
+        assertNotNull(result);
+        assertNotNull(result.getCoSigner());
+        assertNotNull(result.getCoSigner().getAdditionalIncomeSources());
+        assertEquals(additionalIncomeSource.getName(), result.getCoSigner().getAdditionalIncomeSources().get(0).getName());
+        assertEquals(additionalIncomeSource.getMonthlyIncome(), result.getCoSigner().getAdditionalIncomeSources().get(0).getMonthlyIncome());
+    }
+
+    @Test
+    public void toDto_WhenGivenAnApplicationWithCosignerAndIdentification_ShouldMap() {
+        // Arrange
+        Identification identification = new Identification();
+        identification.setDateOfBirth(LocalDate.of(2020, 3, 12));
+        identification.setSsn("SSN");
+        identification.setGovernmentIssuedId("Driver Licence");
+        identification.setIssuedLocation("State");
+
+        CoSigner coSigner = new CoSigner();
+        coSigner.setIdentification(identification);
+
+        Application application = new Application();
+        application.setCoSigner(coSigner);
+
+        // Act
+        ApplicationDto result = applicationMapper.toDto(application);
+
+        // Assert
+        assertNotNull(result);
+        assertNotNull(result.getCoSigner());
+        assertNotNull(result.getCoSigner().getIdentification());
+        assertEquals(identification.getDateOfBirth(), result.getCoSigner().getIdentification().getDateOfBirth());
+        assertEquals(identification.getSsn(), result.getCoSigner().getIdentification().getSsn());
+        assertEquals(identification.getGovernmentIssuedId(), result.getCoSigner().getIdentification().getGovernmentIssuedId());
+        assertEquals(identification.getIssuedLocation(), result.getCoSigner().getIdentification().getIssuedLocation());
     }
 
     @Test

@@ -69,7 +69,7 @@ public class ApplicationService {
         CoSigner coSigner = coSignerMapper.toModel(coSignerInfo);
         application.setCoSigner(coSigner);
 
-        applicationRepository.persist(application);
+        applicationRepository.persistAndFlush(application);
         return coSigner.getId();
     }
 }

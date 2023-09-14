@@ -17,7 +17,7 @@ import lombok.Setter;
 public class SaveCoSignerDto {
 
     @Email
-    private String email;
+    private String applicantEmail;
 
     @NotNull
     @Valid

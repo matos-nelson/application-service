@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class PrimaryApplicantDtoTest {
 
     @Test
-    public void ApplicantDto_SettersAndGetters_ShouldWork() {
+    public void PrimaryApplicantDto_SettersAndGetters_ShouldWork() {
         // Arrange
         BeanTester beanTester = new BeanTester();
 

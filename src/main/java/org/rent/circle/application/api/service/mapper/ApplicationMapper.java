@@ -17,5 +17,5 @@ public interface ApplicationMapper {
     @Mapping(target = "coSigner", source = "coSigner")
     ApplicationDto toDto(Application application);
 
-    List<ApplicationDto> toDtoList(List<Application> maintenanceRequests);
+    List<ApplicationDto> toDtoList(List<Application> applications);
 }

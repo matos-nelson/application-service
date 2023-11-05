@@ -28,11 +28,10 @@ public class ApplicationRepository implements PanacheRepository<Application> {
             .and("managerId", managerId)
             .and("status", Status.PENDING_APPROVAL.name());
 
-        Optional<Application> result = find("from Application app "
+        return find("from Application app "
             + "left join app.primaryApplicant pa "
             + "where app.managerId = :managerId and app.status = :status and pa.email = :email", queryParams)
-            .singleResultOptional();
-
-        return result.isPresent() ? result.get() : null;
+            .singleResultOptional()
+            .orElse(null);
     }
 }

@@ -46,31 +46,31 @@ public class PrimaryApplicantDto {
     @NotNull
     @NotEmpty
     @Valid
-    List<ResidentialHistoryDto> residentialHistories;
+    private List<ResidentialHistoryDto> residentialHistories;
 
-    List<PersonalReferenceDto> personalReferences;
-
-    @Valid
-    List<CoApplicantDto> coApplicants;
+    private List<PersonalReferenceDto> personalReferences;
 
     @Valid
-    List<OccupantDto> occupants;
+    private List<CoApplicantDto> coApplicants;
 
     @Valid
-    List<PetDto> pets;
+    private List<OccupantDto> occupants;
+
+    @Valid
+    private List<PetDto> pets;
 
     @NotNull
     @Valid
-    IdentificationDto identification;
+    private IdentificationDto identification;
 
-    EmergencyContactDto emergencyContact;
+    private EmergencyContactDto emergencyContact;
 
-    List<VehicleDto> vehicles;
+    private List<VehicleDto> vehicles;
 
     @NotNull
     @Valid
-    EmployerDto employer;
+    private EmployerDto employer;
 
     @Valid
-    List<AdditionalIncomeSourceDto> additionalIncomeSources;
+    private List<AdditionalIncomeSourceDto> additionalIncomeSources;
 }

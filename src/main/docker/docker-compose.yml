@@ -8,15 +8,15 @@ services:
     ports:
       - '8080:8080'
     links:
-      - "mysql-db"
+      - "application-db"
     environment:
       - DB_USER=root
       - DB_PWD=root
       - DB_URL=jdbc:mysql://mysql-db/application
 
-  mysql-db:
+  application-db:
     image: mysql:8.0
-    container_name: "mysql-db"
+    container_name: "application-db"
     environment:
       - MYSQL_DATABASE=application
       - MYSQL_ROOT_PASSWORD=root

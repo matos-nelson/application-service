@@ -27,7 +27,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        Application result = applicationRepository.findApplication(123L, 456L);
+        Application result = applicationRepository.findApplication(123L, "no_user");
 
         // Assert
         assertNull(result);
@@ -39,7 +39,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        Application result = applicationRepository.findApplication(100L, 2L);
+        Application result = applicationRepository.findApplication(100L, "auth_user");
 
         // Assert
         assertNotNull(result);
@@ -51,7 +51,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        List<Application> result = applicationRepository.findApplications(456L, 0, 10);
+        List<Application> result = applicationRepository.findApplications("no_user", 0, 10);
 
         // Assert
         assertNotNull(result);
@@ -64,7 +64,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        List<Application> result = applicationRepository.findApplications(2L, 0, 10);
+        List<Application> result = applicationRepository.findApplications("auth_user", 0, 10);
 
         // Assert
         assertNotNull(result);
@@ -77,7 +77,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        List<Application> result = applicationRepository.findApplications(2L, 10, 10);
+        List<Application> result = applicationRepository.findApplications("auth_user", 10, 10);
 
         // Assert
         assertNotNull(result);
@@ -90,7 +90,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        Application result = applicationRepository.findApplicantsPendingApplication(3L, "nonehere@gmail.com");
+        Application result = applicationRepository.findApplicantsPendingApplication("test_manager", "nonehere@gmail.com");
 
         // Assert
         assertNull(result);
@@ -102,7 +102,7 @@ public class ApplicationRepositoryTest {
         // Arrange
 
         // Act
-        Application result = applicationRepository.findApplicantsPendingApplication(3L, "john.doe@email.com");
+        Application result = applicationRepository.findApplicantsPendingApplication("auth_manager", "john.doe@email.com");
 
         // Assert
         assertNotNull(result);

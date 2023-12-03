@@ -21,6 +21,8 @@ import java.util.List;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.application.api.annotation.AuthNewUser;
+import org.rent.circle.application.api.annotation.AuthUser;
 import org.rent.circle.application.api.dto.AdditionalIncomeSourceDto;
 import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.CoSignerDto;
@@ -80,7 +82,7 @@ public class ApplicationResourceTest {
 
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
-            .managerId(2L)
+            .managerId("2")
             .primaryApplicant(primaryApplicantDto)
             .build();
 
@@ -115,6 +117,7 @@ public class ApplicationResourceTest {
     }
 
     @Test
+    @AuthUser
     public void PATCH_WhenGivenAValidRequestToUpdateApplicationStatus_ShouldReturnOk() {
         // Arrange
         UpdateApplicationStatusDto updateApplicationStatusDto = UpdateApplicationStatusDto.builder()
@@ -127,12 +130,13 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/300/manager/2/status")
+            .patch("/300/status")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
 
     @Test
+    @AuthUser
     public void PATCH_WhenGivenAnInValidRequestToUpdateApplicationStatus_ShouldReturnBadRequest() {
         // Arrange
         UpdateApplicationStatusDto updateApplicationStatusDto = UpdateApplicationStatusDto.builder()
@@ -144,12 +148,13 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(updateApplicationStatusDto)
             .when()
-            .patch("/1/manager/2/status")
+            .patch("/1/status")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
+    @AuthUser
     public void GET_WhenAnApplicationCantBeFound_ShouldReturnNoContent() {
         // Arrange
 
@@ -157,12 +162,13 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/1/manager/2")
+            .get("/1")
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
 
     @Test
+    @AuthUser
     public void GET_WhenApplicationIsFound_ShouldReturnApplication() {
         // Arrange
 
@@ -170,12 +176,12 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/100/manager/2")
+            .get("/100")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),
                 "propertyId", is(1),
-                "managerId", is(2),
+                "managerId", is("auth_user"),
                 "note", is(nullValue()),
                 "status", is("PENDING_APPROVAL"),
                 "primaryApplicant.firstName", is("First"),
@@ -197,6 +203,7 @@ public class ApplicationResourceTest {
     }
 
     @Test
+    @AuthNewUser
     public void GET_getApplications_WhenApplicationsCantBeFound_ShouldReturnNoRequests() {
         // Arrange
 
@@ -204,20 +211,21 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/manager/999?page=0&pageSize=10")
+            .get("?page=0&pageSize=10")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body(is("[]"));
     }
 
     @Test
+    @AuthUser
     public void GET_getApplications_WhenApplicationsAreFound_ShouldReturnRequests() {
         // Arrange
 
         // Act
         List<ApplicationDto> result = given()
             .when()
-            .get("/manager/2?page=0&pageSize=10")
+            .get("?page=0&pageSize=10")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .extract()
@@ -230,13 +238,14 @@ public class ApplicationResourceTest {
         assertEquals(1, result.size());
         assertEquals(100L, result.get(0).getId());
         assertEquals(1L, result.get(0).getPropertyId());
-        assertEquals(2L, result.get(0).getManagerId());
+        assertEquals("auth_user", result.get(0).getManagerId());
         assertEquals(Status.PENDING_APPROVAL, result.get(0).getStatus());
         assertNull(result.get(0).getNote());
         assertNotNull(result.get(0).getPrimaryApplicant());
     }
 
     @Test
+    @AuthUser
     public void GET_getApplications_WhenFailsValidation_ShouldReturnBadRequest() {
         // Arrange
 
@@ -244,7 +253,7 @@ public class ApplicationResourceTest {
         // Assert
         given()
             .when()
-            .get("/manager/123?page=0")
+            .get("?page=0")
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
@@ -295,7 +304,7 @@ public class ApplicationResourceTest {
             .contentType("application/json")
             .body(saveCoSignerDto)
             .when()
-            .put("/cosigner/manager/3")
+            .put("/cosigner/manager/auth_manager")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body(is("1"));

@@ -63,7 +63,7 @@ public class ApplicationMapperTest {
         // Arrange
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
-            .managerId(2L)
+            .managerId("2")
             .build();
 
         // Act
@@ -433,7 +433,7 @@ public class ApplicationMapperTest {
         Application application = new Application();
         application.setId(1L);
         application.setPropertyId(2L);
-        application.setManagerId(3L);
+        application.setManagerId("3");
         application.setStatus(Status.DENIED.name());
         application.setNote("My Note");
 
@@ -913,7 +913,7 @@ public class ApplicationMapperTest {
         Application application = new Application();
         application.setId(1L);
         application.setPropertyId(2L);
-        application.setManagerId(3L);
+        application.setManagerId("3");
         application.setStatus(Status.DENIED.name());
         application.setNote("My Note");
 

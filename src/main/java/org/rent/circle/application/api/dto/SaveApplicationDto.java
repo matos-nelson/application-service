@@ -16,7 +16,7 @@ import lombok.Setter;
 public class SaveApplicationDto {
 
     @NotNull
-    private Long managerId;
+    private String managerId;
 
     @NotNull
     private Long propertyId;

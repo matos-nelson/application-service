@@ -66,7 +66,7 @@ public class ApplicationServiceTest {
     public void updateApplicationStatus_WhenApplicationCantBeFound_ShouldReturn() {
         // Arrange
         Long applicationId = 1L;
-        Long managerId = 2L;
+        String managerId = "2";
         UpdateApplicationStatusDto updateApplicationStatus = UpdateApplicationStatusDto.builder()
             .status(Status.APPROVED)
             .note("note")
@@ -85,7 +85,7 @@ public class ApplicationServiceTest {
     public void updateApplicationStatus_WhenApplicationIsFound_ShouldUpdateStatus() {
         // Arrange
         Long applicationId = 1L;
-        Long managerId = 2L;
+        String managerId = "2";
         String note = "my note";
 
         Application application = new Application();
@@ -112,7 +112,7 @@ public class ApplicationServiceTest {
     public void getApplication_WhenApplicationIsNotFound_ShouldReturnNull() {
         // Arrange
         Long applicationId = 1L;
-        Long managerId = 2L;
+        String managerId = "2";
         when(applicationRepository.findApplication(applicationId, managerId)).thenReturn(null);
 
         // Act
@@ -126,7 +126,7 @@ public class ApplicationServiceTest {
     public void getApplication_WhenApplicationIsFound_ShouldReturnApplication() {
         // Arrange
         Long applicationId = 1L;
-        Long managerId = 2L;
+        String managerId = "2";
         Application application = new Application();
         application.setId(applicationId);
         application.setManagerId(managerId);
@@ -150,14 +150,14 @@ public class ApplicationServiceTest {
     @Test
     public void getApplications_WhenApplicationsWithGivenManagerIdAreNotFound_ShouldReturnEmptyList() {
         // Arrange
-        Long ownerId = 1L;
+        String managerId = "1";
         int page = 2;
         int pageSize = 10;
 
-        when(applicationRepository.findApplications(ownerId, page, pageSize)).thenReturn(null);
+        when(applicationRepository.findApplications(managerId, page, pageSize)).thenReturn(null);
 
         // Act
-        List<ApplicationDto> result = applicationService.getApplications(ownerId, page, pageSize);
+        List<ApplicationDto> result = applicationService.getApplications(managerId, page, pageSize);
 
         // Assert
         assertTrue(result.isEmpty());
@@ -166,16 +166,16 @@ public class ApplicationServiceTest {
     @Test
     public void getApplications_WhenApplicationWithGivenManagerIdIdAreFound_ShouldReturnList() {
         // Arrange
-        Long ownerId = 1L;
+        String managerId = "1";
         int page = 2;
         int pageSize = 10;
         List<Application> applications = Collections.singletonList(new Application());
-        when(applicationRepository.findApplications(ownerId, page, pageSize)).thenReturn(applications);
+        when(applicationRepository.findApplications(managerId, page, pageSize)).thenReturn(applications);
         when(applicationMapper.toDtoList(applications)).thenReturn(
             Collections.singletonList(new ApplicationDto()));
 
         // Act
-        List<ApplicationDto> result = applicationService.getApplications(ownerId, page, pageSize);
+        List<ApplicationDto> result = applicationService.getApplications(managerId, page, pageSize);
 
         // Assert
         assertNotNull(result);
@@ -185,7 +185,7 @@ public class ApplicationServiceTest {
     @Test
     public void saveCoSigner_WhenApplicationCantBeFound_ShouldReturnNull() {
         // Arrange
-        long managerId = 1L;
+        String managerId = "1";
         String applicantEmail = "applicant@email.com";
 
         CoSignerDto coSigner = CoSignerDto.builder().build();
@@ -201,7 +201,7 @@ public class ApplicationServiceTest {
     @Test
     public void saveCoSigner_WhenCalled_ShouldReturnCoSignerId() {
         // Arrange
-        long managerId = 1L;
+        String managerId = "1";
         String applicantEmail = "applicant@email.com";
 
         Application application = new Application();

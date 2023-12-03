@@ -15,7 +15,7 @@ import org.rent.circle.application.api.enums.Status;
 public class ApplicationDto {
 
     private Long id;
-    private Long managerId;
+    private String managerId;
     private Long propertyId;
     private Status status;
     private String note;

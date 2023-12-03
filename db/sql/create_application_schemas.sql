@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS application (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  manager_id bigint NOT NULL,
+  manager_id varchar(255) NOT NULL,
   property_id bigint NOT NULL,
   applicant_id bigint NOT NULL,
   co_signer_id bigint DEFAULT NULL,

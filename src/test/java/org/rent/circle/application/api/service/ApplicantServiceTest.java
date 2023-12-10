@@ -22,7 +22,7 @@ public class ApplicantServiceTest {
     @Test
     public void getApplicationStatusCount_WhenCalled_ShouldReturnCount() {
         // Arrange
-        long managerId = 1L;
+        String managerId = "1";
         String email = "john.doe@email.com";
         Status status = Status.PENDING_APPROVAL;
         long count = 10;

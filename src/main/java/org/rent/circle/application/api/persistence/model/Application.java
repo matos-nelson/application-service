@@ -27,7 +27,7 @@ public class Application extends BaseModel {
     private Long id;
 
     @Column(name = "manager_id")
-    private Long managerId;
+    private String managerId;
 
     @Column(name = "property_id")
     private Long propertyId;

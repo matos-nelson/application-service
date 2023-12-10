@@ -1,7 +1,10 @@
 package org.rent.circle.application.api.resource;
 
+import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -16,6 +19,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.rent.circle.application.api.dto.ApplicationDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
 import org.rent.circle.application.api.dto.SaveCoSignerDto;
@@ -30,39 +34,43 @@ import org.rent.circle.application.api.service.ApplicationService;
 public class ApplicationResource {
 
     private final ApplicationService applicationService;
+    private final JsonWebToken jwt;
 
     @POST
+    @PermitAll
     public Long saveApplication(@Valid SaveApplicationDto saveApplication) {
         return applicationService.saveApplication(saveApplication);
     }
 
     @PATCH
-    @Path("/{id}/manager/{managerId}/status")
+    @Path("/{id}/status")
+    @Authenticated
     public void updateApplicationStatus(
         @NotNull @PathParam("id") Long applicationId,
-        @NotNull @PathParam("managerId") Long managerId,
         @Valid UpdateApplicationStatusDto updatedApplicationStatus) {
-        applicationService.updateApplicationStatus(applicationId, managerId, updatedApplicationStatus);
+        applicationService.updateApplicationStatus(applicationId, jwt.getName(), updatedApplicationStatus);
     }
 
     @GET
-    @Path("/{id}/manager/{managerId}")
-    public ApplicationDto getApplication(@NotNull @PathParam("id") Long applicationId, @NotNull @PathParam("managerId") Long managerId) {
-        return applicationService.getApplication(applicationId, managerId);
+    @Path("/{id}")
+    @Authenticated
+    public ApplicationDto getApplication(@NotNull @PathParam("id") Long applicationId) {
+        return applicationService.getApplication(applicationId, jwt.getName());
     }
 
     @GET
-    @Path("/manager/{managerId}")
-    public List<ApplicationDto> getApplications(@NotNull @PathParam("managerId") Long managerId,
+    @Authenticated
+    public List<ApplicationDto> getApplications(
         @NotNull @QueryParam("page") @Min(0) Integer page,
         @NotNull @QueryParam("pageSize") @Min(1) Integer pageSize) {
-        return applicationService.getApplications(managerId, page, pageSize);
+        return applicationService.getApplications(jwt.getName(), page, pageSize);
     }
 
     @PUT
     @Path("/cosigner/manager/{managerId}")
+    @PermitAll
     public Long saveCosigner(
-        @NotNull @PathParam("managerId") Long managerId,
+        @NotBlank @PathParam("managerId") String managerId,
         @Valid SaveCoSignerDto saveCoSignerDto) {
         return applicationService.saveCoSigner(managerId, saveCoSignerDto.getApplicantEmail(), saveCoSignerDto.getCoSigner());
     }

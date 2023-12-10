@@ -21,5 +21,5 @@ public class VehicleDto {
 
     private String color;
 
-    private String licenceNumber;
+    private String licenseNumber;
 }

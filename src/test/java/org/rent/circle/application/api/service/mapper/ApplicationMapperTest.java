@@ -63,7 +63,7 @@ public class ApplicationMapperTest {
         // Arrange
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()
             .propertyId(1L)
-            .managerId(2L)
+            .managerId("2")
             .build();
 
         // Act
@@ -331,7 +331,7 @@ public class ApplicationMapperTest {
             .model("Model")
             .year(1000)
             .color("Color")
-            .licenceNumber("123-ABC")
+            .licenseNumber("123-ABC")
             .build();
         PrimaryApplicantDto primaryApplicantDto = PrimaryApplicantDto.builder()
             .vehicles(Collections.singletonList(vehicle))
@@ -351,7 +351,7 @@ public class ApplicationMapperTest {
         assertEquals(vehicle.getModel(), result.getPrimaryApplicant().getVehicles().get(0).getModel());
         assertEquals(vehicle.getYear(), result.getPrimaryApplicant().getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getPrimaryApplicant().getVehicles().get(0).getColor());
-        assertEquals(vehicle.getLicenceNumber(), result.getPrimaryApplicant().getVehicles().get(0).getLicenceNumber());
+        assertEquals(vehicle.getLicenseNumber(), result.getPrimaryApplicant().getVehicles().get(0).getLicenseNumber());
     }
 
     @Test
@@ -433,7 +433,7 @@ public class ApplicationMapperTest {
         Application application = new Application();
         application.setId(1L);
         application.setPropertyId(2L);
-        application.setManagerId(3L);
+        application.setManagerId("3");
         application.setStatus(Status.DENIED.name());
         application.setNote("My Note");
 
@@ -696,7 +696,7 @@ public class ApplicationMapperTest {
         vehicle.setModel("Model");
         vehicle.setYear(1000);
         vehicle.setColor("Color");
-        vehicle.setLicenceNumber("123-ABC");
+        vehicle.setLicenseNumber("123-ABC");
 
         PrimaryApplicant primaryApplicant = new PrimaryApplicant();
         primaryApplicant.setVehicles(Collections.singletonList(vehicle));
@@ -715,7 +715,7 @@ public class ApplicationMapperTest {
         assertEquals(vehicle.getModel(), result.getPrimaryApplicant().getVehicles().get(0).getModel());
         assertEquals(vehicle.getYear(), result.getPrimaryApplicant().getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getPrimaryApplicant().getVehicles().get(0).getColor());
-        assertEquals(vehicle.getLicenceNumber(), result.getPrimaryApplicant().getVehicles().get(0).getLicenceNumber());
+        assertEquals(vehicle.getLicenseNumber(), result.getPrimaryApplicant().getVehicles().get(0).getLicenseNumber());
     }
 
     @Test
@@ -913,7 +913,7 @@ public class ApplicationMapperTest {
         Application application = new Application();
         application.setId(1L);
         application.setPropertyId(2L);
-        application.setManagerId(3L);
+        application.setManagerId("3");
         application.setStatus(Status.DENIED.name());
         application.setNote("My Note");
 

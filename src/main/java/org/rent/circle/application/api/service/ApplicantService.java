@@ -15,7 +15,7 @@ public class ApplicantService {
     @Inject
     ApplicantRepository applicantRepository;
 
-    public long getApplicationStatusCount(long managerId, String email, Status status) {
+    public long getApplicationStatusCount(String managerId, String email, Status status) {
         return applicantRepository.getApplicantApplicationsStatusCount(managerId, email, status.name());
     }
 }

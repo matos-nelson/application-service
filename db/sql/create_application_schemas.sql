@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS application (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  manager_id bigint NOT NULL,
+  manager_id varchar(255) NOT NULL,
   property_id bigint NOT NULL,
   applicant_id bigint NOT NULL,
   co_signer_id bigint DEFAULT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS vehicle (
   model varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   year_made SMALLINT DEFAULT NULL,
   color varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  licence_num varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  license_num varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY applicant_id_idx (applicant_id)

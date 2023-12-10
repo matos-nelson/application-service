@@ -8,7 +8,7 @@ import org.rent.circle.application.api.persistence.model.Applicant;
 @ApplicationScoped
 public class ApplicantRepository implements PanacheRepository<Applicant> {
 
-    public long getApplicantApplicationsStatusCount(long managerId, String email, String status) {
+    public long getApplicantApplicationsStatusCount(String managerId, String email, String status) {
         Parameters queryParams = Parameters.with("email", email)
             .and("managerId", managerId)
             .and("status", status);

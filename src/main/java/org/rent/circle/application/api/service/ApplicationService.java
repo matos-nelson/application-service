@@ -35,7 +35,7 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void updateApplicationStatus(Long applicationId, Long managerId, UpdateApplicationStatusDto updatedStatus) {
+    public void updateApplicationStatus(Long applicationId, String managerId, UpdateApplicationStatusDto updatedStatus) {
 
         Application application = applicationRepository.findApplication(applicationId, managerId);
         if (application == null) {
@@ -48,18 +48,18 @@ public class ApplicationService {
         applicationRepository.persist(application);
     }
 
-    public ApplicationDto getApplication(Long id, Long managerId) {
+    public ApplicationDto getApplication(Long id, String managerId) {
         Application application = applicationRepository.findApplication(id, managerId);
         return applicationMapper.toDto(application);
     }
 
-    public List<ApplicationDto> getApplications(Long managerId, int page, int pageSize) {
+    public List<ApplicationDto> getApplications(String managerId, int page, int pageSize) {
         List<Application> applications = applicationRepository.findApplications(managerId, page, pageSize);
         return applicationMapper.toDtoList(applications);
     }
 
     @Transactional
-    public Long saveCoSigner(long managerId, String applicantEmail, CoSignerDto coSignerInfo) {
+    public Long saveCoSigner(String managerId, String applicantEmail, CoSignerDto coSignerInfo) {
 
         Application application = applicationRepository.findApplicantsPendingApplication(managerId, applicantEmail);
         if (application == null) {

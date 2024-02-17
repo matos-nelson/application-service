@@ -25,7 +25,9 @@ public class CoApplicantDto {
     private String lastName;
 
     @Email
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String phone;
 }

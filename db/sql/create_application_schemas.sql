@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS application (
 
 CREATE TABLE IF NOT EXISTS applicant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
-  employer_id bigint NOT NULL,
-  identification_id bigint NOT NULL,
+  employer_id bigint DEFAULT NULL,
+  identification_id bigint DEFAULT NULL,
   first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   last_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   middle_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -48,6 +48,14 @@ CREATE TABLE IF NOT EXISTS co_signer (
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY address_id_idx (address_id)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS co_applicant (
+  id bigint PRIMARY KEY AUTO_INCREMENT,
+  applicant_id bigint NOT NULL,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY applicant_id_idx (applicant_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS residential_history (
@@ -82,17 +90,6 @@ CREATE TABLE IF NOT EXISTS personal_reference (
   KEY applicant_id_idx (applicant_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS co_applicant (
-  id bigint PRIMARY KEY AUTO_INCREMENT,
-  applicant_id bigint NOT NULL,
-  first_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  last_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  email varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  phone varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  KEY applicant_id_idx (applicant_id)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS occupant (
   id bigint PRIMARY KEY AUTO_INCREMENT,

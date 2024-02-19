@@ -1,6 +1,7 @@
 package org.rent.circle.application.api.persistence.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Inheritance;
@@ -19,6 +20,12 @@ import lombok.Setter;
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Applicant extends ApplicantInfoBase {
+
+    @Column(name = "recent_eviction")
+    private boolean recentlyEvicted;
+
+    @Column(name = "eviction_explanation")
+    private String evictionExplanation;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)

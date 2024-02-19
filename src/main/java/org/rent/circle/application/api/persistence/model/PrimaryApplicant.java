@@ -1,7 +1,6 @@
 package org.rent.circle.application.api.persistence.model;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -19,12 +18,6 @@ import lombok.Setter;
 @Getter
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class PrimaryApplicant extends Applicant {
-
-    @Column(name = "recent_eviction")
-    private boolean recentlyEvicted;
-
-    @Column(name = "eviction_explanation")
-    private String evictionExplanation;
 
     @OneToOne(mappedBy = "primaryApplicant")
     private Application application;

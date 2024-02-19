@@ -27,6 +27,10 @@ public class UpdateCoApplicantDto {
     @NotBlank
     private String phone;
 
+    private boolean recentlyEvicted;
+
+    private String evictionExplanation;
+
     @NotNull
     @NotEmpty
     @Valid

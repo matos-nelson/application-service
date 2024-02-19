@@ -37,6 +37,8 @@ public class CoApplicantDto {
     @NotBlank
     private String phone;
 
+    private boolean recentlyEvicted;
+    private String evictionExplanation;
     private List<ResidentialHistoryDto> residentialHistories;
     private List<PersonalReferenceDto> personalReferences;
     private List<OccupantDto> occupants;

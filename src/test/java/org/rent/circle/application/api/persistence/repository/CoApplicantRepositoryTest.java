@@ -24,7 +24,7 @@ public class CoApplicantRepositoryTest {
         // Arrange
 
         // Act
-        CoApplicant result = coApplicantRepository.findCoApplicant("no_manager", 123L, 123L);
+        CoApplicant result = coApplicantRepository.findCoApplicant("no_co_applicant", 123L, 123L);
 
         // Assert
         assertNull(result);
@@ -36,7 +36,7 @@ public class CoApplicantRepositoryTest {
         // Arrange
 
         // Act
-        CoApplicant result = coApplicantRepository.findCoApplicant("auth_manager", 700L, 600L);
+        CoApplicant result = coApplicantRepository.findCoApplicant("auth_co_applicant", 700L, 600L);
 
         // Assert
         assertNotNull(result);

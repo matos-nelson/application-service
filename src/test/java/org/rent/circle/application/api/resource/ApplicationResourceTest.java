@@ -78,6 +78,12 @@ public class ApplicationResourceTest {
             .residentialHistories(Collections.singletonList(residentialHistoryDto))
             .identification(identificationDto)
             .employer(employerDto)
+            .occupants(Collections.emptyList())
+            .additionalIncomeSources(Collections.emptyList())
+            .pets(Collections.emptyList())
+            .vehicles(Collections.emptyList())
+            .personalReferences(Collections.emptyList())
+            .coApplicants(Collections.emptyList())
             .build();
 
         SaveApplicationDto saveApplicationDto = SaveApplicationDto.builder()

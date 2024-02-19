@@ -38,9 +38,11 @@ public class UpdateCoApplicantDto {
 
     private List<PersonalReferenceDto> personalReferences;
 
+    @NotNull
     @Valid
     private List<OccupantDto> occupants;
 
+    @NotNull
     @Valid
     private List<PetDto> pets;
 
@@ -50,6 +52,7 @@ public class UpdateCoApplicantDto {
 
     private EmergencyContactDto emergencyContact;
 
+    @NotNull
     private List<VehicleDto> vehicles;
 
     @NotNull
@@ -57,5 +60,6 @@ public class UpdateCoApplicantDto {
     private EmployerDto employer;
 
     @Valid
+    @NotNull
     private List<AdditionalIncomeSourceDto> additionalIncomeSources;
 }

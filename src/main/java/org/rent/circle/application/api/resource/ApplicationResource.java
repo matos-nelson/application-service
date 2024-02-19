@@ -31,20 +31,20 @@ import org.rent.circle.application.api.service.ApplicationService;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Slf4j
+@Authenticated
 public class ApplicationResource {
 
     private final ApplicationService applicationService;
     private final JsonWebToken jwt;
 
-    @POST
     @PermitAll
+    @POST
     public Long saveApplication(@Valid SaveApplicationDto saveApplication) {
         return applicationService.saveApplication(saveApplication);
     }
 
     @PATCH
     @Path("/{id}/status")
-    @Authenticated
     public void updateApplicationStatus(
         @NotNull @PathParam("id") Long applicationId,
         @Valid UpdateApplicationStatusDto updatedApplicationStatus) {
@@ -53,25 +53,24 @@ public class ApplicationResource {
 
     @GET
     @Path("/{id}")
-    @Authenticated
     public ApplicationDto getApplication(@NotNull @PathParam("id") Long applicationId) {
         return applicationService.getApplication(applicationId, jwt.getName());
     }
 
     @GET
-    @Authenticated
     public List<ApplicationDto> getApplications(
         @NotNull @QueryParam("page") @Min(0) Integer page,
         @NotNull @QueryParam("pageSize") @Min(1) Integer pageSize) {
         return applicationService.getApplications(jwt.getName(), page, pageSize);
     }
 
+    @PermitAll
     @PUT
     @Path("/cosigner/manager/{managerId}")
-    @PermitAll
     public Long saveCosigner(
         @NotBlank @PathParam("managerId") String managerId,
         @Valid SaveCoSignerDto saveCoSignerDto) {
-        return applicationService.saveCoSigner(managerId, saveCoSignerDto.getApplicantEmail(), saveCoSignerDto.getCoSigner());
+        return applicationService.saveCoSigner(managerId, saveCoSignerDto.getApplicantEmail(),
+            saveCoSignerDto.getCoSigner());
     }
 }

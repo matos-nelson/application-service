@@ -29,6 +29,6 @@ public class CoApplicantService {
         }
 
         applicationMapper.updateCoApplicant(updateCoApplicantInfo, coApplicant);
-        coApplicantRepository.persist(coApplicant);
+        coApplicantRepository.persistAndFlush(coApplicant);
     }
 }

@@ -48,15 +48,19 @@ public class PrimaryApplicantDto {
     @Valid
     private List<ResidentialHistoryDto> residentialHistories;
 
+    @NotNull
     private List<PersonalReferenceDto> personalReferences;
 
     @Valid
+    @NotNull
     private List<CoApplicantDto> coApplicants;
 
     @Valid
+    @NotNull
     private List<OccupantDto> occupants;
 
     @Valid
+    @NotNull
     private List<PetDto> pets;
 
     @NotNull
@@ -65,6 +69,7 @@ public class PrimaryApplicantDto {
 
     private EmergencyContactDto emergencyContact;
 
+    @NotNull
     private List<VehicleDto> vehicles;
 
     @NotNull

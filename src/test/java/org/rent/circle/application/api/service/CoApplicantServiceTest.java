@@ -41,7 +41,7 @@ public class CoApplicantServiceTest {
         coApplicantService.updateCoApplicant(managerId, applicationId, coApplicantId, updateCoApplicantDto);
 
         // Assert
-        verify(coApplicantRepository, times(0)).persist((CoApplicant) Mockito.any());
+        verify(coApplicantRepository, times(0)).persistAndFlush(Mockito.any());
         verify(applicationMapper, times(0)).updateCoApplicant(Mockito.any(), Mockito.any());
     }
 
@@ -61,7 +61,7 @@ public class CoApplicantServiceTest {
         coApplicantService.updateCoApplicant(managerId, applicationId, coApplicantId, updateCoApplicantDto);
 
         // Assert
-        verify(coApplicantRepository, times(1)).persist(coApplicant);
+        verify(coApplicantRepository, times(1)).persistAndFlush(coApplicant);
         verify(applicationMapper, times(1)).updateCoApplicant(updateCoApplicantDto, coApplicant);
     }
 }

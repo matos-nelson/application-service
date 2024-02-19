@@ -46,4 +46,4 @@ INSERT INTO primary_applicant(id) values (500);
 
 INSERT INTO applicant(id, first_name, last_name, email, phone, recent_eviction) values (600, 'Ben', 'Toms', 'ben.toms@email.com', '4478901239', false);
 INSERT INTO co_applicant(id, applicant_id) values (600, 500);
-INSERT INTO application(id, property_id, manager_id, applicant_id, status) values (700, 49, 'auth_manager', 500, 'PENDING_APPROVAL');
+INSERT INTO application(id, property_id, manager_id, applicant_id, status) values (700, 49, 'auth_co_applicant', 500, 'PENDING_APPROVAL');

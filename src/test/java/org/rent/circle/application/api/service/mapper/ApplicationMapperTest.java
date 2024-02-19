@@ -24,6 +24,7 @@ import org.rent.circle.application.api.dto.PetDto;
 import org.rent.circle.application.api.dto.PrimaryApplicantDto;
 import org.rent.circle.application.api.dto.ResidentialHistoryDto;
 import org.rent.circle.application.api.dto.SaveApplicationDto;
+import org.rent.circle.application.api.dto.UpdateCoApplicantDto;
 import org.rent.circle.application.api.dto.VehicleDto;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.enums.Suffix;
@@ -105,7 +106,8 @@ public class ApplicationMapperTest {
         assertEquals(primaryApplicantDto.getEmail(), result.getPrimaryApplicant().getEmail());
         assertEquals(primaryApplicantDto.getPhone(), result.getPrimaryApplicant().getPhone());
         assertEquals(primaryApplicantDto.isRecentlyEvicted(), result.getPrimaryApplicant().isRecentlyEvicted());
-        assertEquals(primaryApplicantDto.getEvictionExplanation(), result.getPrimaryApplicant().getEvictionExplanation());
+        assertEquals(primaryApplicantDto.getEvictionExplanation(),
+            result.getPrimaryApplicant().getEvictionExplanation());
     }
 
     @Test
@@ -138,17 +140,28 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getResidentialHistories());
-        assertEquals(residentialHistory.getAddressId(), result.getPrimaryApplicant().getResidentialHistories().get(0).getAddressId());
-        assertEquals(residentialHistory.isCurrentResidence(), result.getPrimaryApplicant().getResidentialHistories().get(0).isCurrentResidence());
-        assertEquals(residentialHistory.getResidedFromMonth().name(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromMonth());
-        assertEquals(residentialHistory.getResidedFromYear(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromYear());
-        assertEquals(residentialHistory.getResidedToMonth().name(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToMonth());
-        assertEquals(residentialHistory.getResidedToYear(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToYear());
-        assertEquals(residentialHistory.getMonthlyRent(), result.getPrimaryApplicant().getResidentialHistories().get(0).getMonthlyRent());
-        assertEquals(residentialHistory.getLandlordName(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordName());
-        assertEquals(residentialHistory.getLandlordPhone(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordPhone());
-        assertEquals(residentialHistory.getLandlordEmail(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordEmail());
-        assertEquals(residentialHistory.getLeaveReason(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLeaveReason());
+        assertEquals(residentialHistory.getAddressId(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getAddressId());
+        assertEquals(residentialHistory.isCurrentResidence(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).isCurrentResidence());
+        assertEquals(residentialHistory.getResidedFromMonth().name(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromMonth());
+        assertEquals(residentialHistory.getResidedFromYear(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromYear());
+        assertEquals(residentialHistory.getResidedToMonth().name(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToMonth());
+        assertEquals(residentialHistory.getResidedToYear(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToYear());
+        assertEquals(residentialHistory.getMonthlyRent(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getMonthlyRent());
+        assertEquals(residentialHistory.getLandlordName(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordName());
+        assertEquals(residentialHistory.getLandlordPhone(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordPhone());
+        assertEquals(residentialHistory.getLandlordEmail(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordEmail());
+        assertEquals(residentialHistory.getLeaveReason(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLeaveReason());
     }
 
     @Test
@@ -174,10 +187,14 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getPersonalReferences());
-        assertEquals(personalReference.getName(), result.getPrimaryApplicant().getPersonalReferences().get(0).getName());
-        assertEquals(personalReference.getRelationship(), result.getPrimaryApplicant().getPersonalReferences().get(0).getRelationship());
-        assertEquals(personalReference.getEmail(), result.getPrimaryApplicant().getPersonalReferences().get(0).getEmail());
-        assertEquals(personalReference.getPhone(), result.getPrimaryApplicant().getPersonalReferences().get(0).getPhone());
+        assertEquals(personalReference.getName(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getName());
+        assertEquals(personalReference.getRelationship(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getRelationship());
+        assertEquals(personalReference.getEmail(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getEmail());
+        assertEquals(personalReference.getPhone(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getPhone());
     }
 
     @Test
@@ -288,10 +305,13 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getIdentification());
-        assertEquals(identification.getDateOfBirth(), result.getPrimaryApplicant().getIdentification().getDateOfBirth());
+        assertEquals(identification.getDateOfBirth(),
+            result.getPrimaryApplicant().getIdentification().getDateOfBirth());
         assertEquals(identification.getSsn(), result.getPrimaryApplicant().getIdentification().getSsn());
-        assertEquals(identification.getGovernmentIssuedId(), result.getPrimaryApplicant().getIdentification().getGovernmentIssuedId());
-        assertEquals(identification.getIssuedLocation(), result.getPrimaryApplicant().getIdentification().getIssuedLocation());
+        assertEquals(identification.getGovernmentIssuedId(),
+            result.getPrimaryApplicant().getIdentification().getGovernmentIssuedId());
+        assertEquals(identification.getIssuedLocation(),
+            result.getPrimaryApplicant().getIdentification().getIssuedLocation());
     }
 
     @Test
@@ -318,7 +338,8 @@ public class ApplicationMapperTest {
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getEmergencyContact());
         assertEquals(emergencyContact.getName(), result.getPrimaryApplicant().getEmergencyContact().getName());
-        assertEquals(emergencyContact.getRelationship(), result.getPrimaryApplicant().getEmergencyContact().getRelationship());
+        assertEquals(emergencyContact.getRelationship(),
+            result.getPrimaryApplicant().getEmergencyContact().getRelationship());
         assertEquals(emergencyContact.getPhone(), result.getPrimaryApplicant().getEmergencyContact().getPhone());
         assertEquals(emergencyContact.getEmail(), result.getPrimaryApplicant().getEmergencyContact().getEmail());
     }
@@ -412,8 +433,10 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getAdditionalIncomeSources());
-        assertEquals(additionalIncome.getName(), result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getName());
-        assertEquals(additionalIncome.getMonthlyIncome(), result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getMonthlyIncome());
+        assertEquals(additionalIncome.getName(),
+            result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getName());
+        assertEquals(additionalIncome.getMonthlyIncome(),
+            result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getMonthlyIncome());
     }
 
     @Test
@@ -509,17 +532,28 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getResidentialHistories());
-        assertEquals(residentialHistory.getAddressId(), result.getPrimaryApplicant().getResidentialHistories().get(0).getAddressId());
-        assertEquals(residentialHistory.isCurrentResidence(), result.getPrimaryApplicant().getResidentialHistories().get(0).isCurrentResidence());
-        assertEquals(residentialHistory.getResidedFromMonth(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromMonth().name());
-        assertEquals(residentialHistory.getResidedFromYear(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromYear());
-        assertEquals(residentialHistory.getResidedToMonth(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToMonth().name());
-        assertEquals(residentialHistory.getResidedToYear(), result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToYear());
-        assertEquals(residentialHistory.getMonthlyRent(), result.getPrimaryApplicant().getResidentialHistories().get(0).getMonthlyRent());
-        assertEquals(residentialHistory.getLandlordName(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordName());
-        assertEquals(residentialHistory.getLandlordPhone(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordPhone());
-        assertEquals(residentialHistory.getLandlordEmail(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordEmail());
-        assertEquals(residentialHistory.getLeaveReason(), result.getPrimaryApplicant().getResidentialHistories().get(0).getLeaveReason());
+        assertEquals(residentialHistory.getAddressId(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getAddressId());
+        assertEquals(residentialHistory.isCurrentResidence(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).isCurrentResidence());
+        assertEquals(residentialHistory.getResidedFromMonth(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromMonth().name());
+        assertEquals(residentialHistory.getResidedFromYear(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedFromYear());
+        assertEquals(residentialHistory.getResidedToMonth(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToMonth().name());
+        assertEquals(residentialHistory.getResidedToYear(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getResidedToYear());
+        assertEquals(residentialHistory.getMonthlyRent(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getMonthlyRent());
+        assertEquals(residentialHistory.getLandlordName(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordName());
+        assertEquals(residentialHistory.getLandlordPhone(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordPhone());
+        assertEquals(residentialHistory.getLandlordEmail(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLandlordEmail());
+        assertEquals(residentialHistory.getLeaveReason(),
+            result.getPrimaryApplicant().getResidentialHistories().get(0).getLeaveReason());
     }
 
     @Test
@@ -544,10 +578,14 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getPersonalReferences());
-        assertEquals(personalReference.getName(), result.getPrimaryApplicant().getPersonalReferences().get(0).getName());
-        assertEquals(personalReference.getRelationship(), result.getPrimaryApplicant().getPersonalReferences().get(0).getRelationship());
-        assertEquals(personalReference.getEmail(), result.getPrimaryApplicant().getPersonalReferences().get(0).getEmail());
-        assertEquals(personalReference.getPhone(), result.getPrimaryApplicant().getPersonalReferences().get(0).getPhone());
+        assertEquals(personalReference.getName(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getName());
+        assertEquals(personalReference.getRelationship(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getRelationship());
+        assertEquals(personalReference.getEmail(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getEmail());
+        assertEquals(personalReference.getPhone(),
+            result.getPrimaryApplicant().getPersonalReferences().get(0).getPhone());
     }
 
     @Test
@@ -654,10 +692,13 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getIdentification());
-        assertEquals(identification.getDateOfBirth(), result.getPrimaryApplicant().getIdentification().getDateOfBirth());
+        assertEquals(identification.getDateOfBirth(),
+            result.getPrimaryApplicant().getIdentification().getDateOfBirth());
         assertEquals(identification.getSsn(), result.getPrimaryApplicant().getIdentification().getSsn());
-        assertEquals(identification.getGovernmentIssuedId(), result.getPrimaryApplicant().getIdentification().getGovernmentIssuedId());
-        assertEquals(identification.getIssuedLocation(), result.getPrimaryApplicant().getIdentification().getIssuedLocation());
+        assertEquals(identification.getGovernmentIssuedId(),
+            result.getPrimaryApplicant().getIdentification().getGovernmentIssuedId());
+        assertEquals(identification.getIssuedLocation(),
+            result.getPrimaryApplicant().getIdentification().getIssuedLocation());
     }
 
     @Test
@@ -683,7 +724,8 @@ public class ApplicationMapperTest {
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getEmergencyContact());
         assertEquals(emergencyContact.getName(), result.getPrimaryApplicant().getEmergencyContact().getName());
-        assertEquals(emergencyContact.getRelationship(), result.getPrimaryApplicant().getEmergencyContact().getRelationship());
+        assertEquals(emergencyContact.getRelationship(),
+            result.getPrimaryApplicant().getEmergencyContact().getRelationship());
         assertEquals(emergencyContact.getPhone(), result.getPrimaryApplicant().getEmergencyContact().getPhone());
         assertEquals(emergencyContact.getEmail(), result.getPrimaryApplicant().getEmergencyContact().getEmail());
     }
@@ -774,8 +816,10 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getPrimaryApplicant());
         assertNotNull(result.getPrimaryApplicant().getAdditionalIncomeSources());
-        assertEquals(additionalIncomeSource.getName(), result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getName());
-        assertEquals(additionalIncomeSource.getMonthlyIncome(), result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getMonthlyIncome());
+        assertEquals(additionalIncomeSource.getName(),
+            result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getName());
+        assertEquals(additionalIncomeSource.getMonthlyIncome(),
+            result.getPrimaryApplicant().getAdditionalIncomeSources().get(0).getMonthlyIncome());
     }
 
     @Test
@@ -864,8 +908,10 @@ public class ApplicationMapperTest {
         assertNotNull(result);
         assertNotNull(result.getCoSigner());
         assertNotNull(result.getCoSigner().getAdditionalIncomeSources());
-        assertEquals(additionalIncomeSource.getName(), result.getCoSigner().getAdditionalIncomeSources().get(0).getName());
-        assertEquals(additionalIncomeSource.getMonthlyIncome(), result.getCoSigner().getAdditionalIncomeSources().get(0).getMonthlyIncome());
+        assertEquals(additionalIncomeSource.getName(),
+            result.getCoSigner().getAdditionalIncomeSources().get(0).getName());
+        assertEquals(additionalIncomeSource.getMonthlyIncome(),
+            result.getCoSigner().getAdditionalIncomeSources().get(0).getMonthlyIncome());
     }
 
     @Test
@@ -892,7 +938,8 @@ public class ApplicationMapperTest {
         assertNotNull(result.getCoSigner().getIdentification());
         assertEquals(identification.getDateOfBirth(), result.getCoSigner().getIdentification().getDateOfBirth());
         assertEquals(identification.getSsn(), result.getCoSigner().getIdentification().getSsn());
-        assertEquals(identification.getGovernmentIssuedId(), result.getCoSigner().getIdentification().getGovernmentIssuedId());
+        assertEquals(identification.getGovernmentIssuedId(),
+            result.getCoSigner().getIdentification().getGovernmentIssuedId());
         assertEquals(identification.getIssuedLocation(), result.getCoSigner().getIdentification().getIssuedLocation());
     }
 
@@ -928,6 +975,282 @@ public class ApplicationMapperTest {
         assertEquals(application.getManagerId(), result.get(0).getManagerId());
         assertEquals(application.getStatus(), result.get(0).getStatus().name());
         assertEquals(application.getNote(), result.get(0).getNote());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenAnUpdateCoApplicantDto_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        coApplicant.setPhone("1231231234");
+
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .middleName("middle")
+            .suffix(Suffix.II)
+            .phone("9891293839")
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertEquals(updateCoApplicantDto.getMiddleName(), coApplicant.getMiddleName());
+        assertEquals(updateCoApplicantDto.getSuffix().toString(), coApplicant.getSuffix());
+        assertEquals(updateCoApplicantDto.getPhone(), coApplicant.getPhone());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithResidentialHistory_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        ResidentialHistoryDto residentialHistory = ResidentialHistoryDto.builder()
+            .addressId(1L)
+            .currentResidence(true)
+            .residedFromMonth(Month.JANUARY)
+            .residedFromYear(2000)
+            .residedToMonth(Month.FEBRUARY)
+            .residedToYear(2010)
+            .monthlyRent(BigDecimal.valueOf(12.34))
+            .landlordName("Landlord Name")
+            .landlordPhone("1234567890")
+            .landlordEmail("landord@email.com")
+            .leaveReason("It was time.")
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .residentialHistories(Collections.singletonList(residentialHistory))
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getResidentialHistories());
+        assertEquals(residentialHistory.getAddressId(), coApplicant.getResidentialHistories().get(0).getAddressId());
+        assertEquals(residentialHistory.isCurrentResidence(),
+            coApplicant.getResidentialHistories().get(0).isCurrentResidence());
+        assertEquals(residentialHistory.getResidedFromMonth().name(),
+            coApplicant.getResidentialHistories().get(0).getResidedFromMonth());
+        assertEquals(residentialHistory.getResidedFromYear(),
+            coApplicant.getResidentialHistories().get(0).getResidedFromYear());
+        assertEquals(residentialHistory.getResidedToMonth().name(),
+            coApplicant.getResidentialHistories().get(0).getResidedToMonth());
+        assertEquals(residentialHistory.getResidedToYear(),
+            coApplicant.getResidentialHistories().get(0).getResidedToYear());
+        assertEquals(residentialHistory.getMonthlyRent(),
+            coApplicant.getResidentialHistories().get(0).getMonthlyRent());
+        assertEquals(residentialHistory.getLandlordName(),
+            coApplicant.getResidentialHistories().get(0).getLandlordName());
+        assertEquals(residentialHistory.getLandlordPhone(),
+            coApplicant.getResidentialHistories().get(0).getLandlordPhone());
+        assertEquals(residentialHistory.getLandlordEmail(),
+            coApplicant.getResidentialHistories().get(0).getLandlordEmail());
+        assertEquals(residentialHistory.getLeaveReason(),
+            coApplicant.getResidentialHistories().get(0).getLeaveReason());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithPersonalReference_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        PersonalReferenceDto personalReference = PersonalReferenceDto.builder()
+            .name("Personal Reference")
+            .relationship("System")
+            .email("test@email.com")
+            .phone("1234567890")
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .personalReferences(Collections.singletonList(personalReference))
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getPersonalReferences());
+        assertEquals(personalReference.getName(), coApplicant.getPersonalReferences().get(0).getName());
+        assertEquals(personalReference.getRelationship(), coApplicant.getPersonalReferences().get(0).getRelationship());
+        assertEquals(personalReference.getEmail(), coApplicant.getPersonalReferences().get(0).getEmail());
+        assertEquals(personalReference.getPhone(), coApplicant.getPersonalReferences().get(0).getPhone());
+    }
+
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithOccupant_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        OccupantDto occupant = OccupantDto.builder()
+            .firstName("Co")
+            .lastName("Applicant")
+            .dateOfBirth(LocalDate.of(2000, 8, 20))
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .occupants(Collections.singletonList(occupant))
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getOccupants());
+        assertEquals(occupant.getFirstName(), coApplicant.getOccupants().get(0).getFirstName());
+        assertEquals(occupant.getLastName(), coApplicant.getOccupants().get(0).getLastName());
+        assertEquals(occupant.getDateOfBirth(), coApplicant.getOccupants().get(0).getDateOfBirth());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithPet_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        PetDto pet = PetDto.builder()
+            .name("Pet")
+            .breed("Dog")
+            .weight(10)
+            .age((byte) 3)
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .pets(Collections.singletonList(pet))
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getPets());
+        assertEquals(pet.getName(), coApplicant.getPets().get(0).getName());
+        assertEquals(pet.getBreed(), coApplicant.getPets().get(0).getBreed());
+        assertEquals(pet.getWeight(), coApplicant.getPets().get(0).getWeight());
+        assertEquals(pet.getAge(), coApplicant.getPets().get(0).getAge());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithIdentification_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        IdentificationDto identification = IdentificationDto.builder()
+            .dateOfBirth(LocalDate.of(2020, 3, 12))
+            .ssn("SSN")
+            .governmentIssuedId("Driver Licence")
+            .issuedLocation("State")
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .identification(identification)
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getIdentification());
+        assertEquals(identification.getDateOfBirth(), coApplicant.getIdentification().getDateOfBirth());
+        assertEquals(identification.getSsn(), coApplicant.getIdentification().getSsn());
+        assertEquals(identification.getGovernmentIssuedId(), coApplicant.getIdentification().getGovernmentIssuedId());
+        assertEquals(identification.getIssuedLocation(), coApplicant.getIdentification().getIssuedLocation());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithEmergencyContact_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        EmergencyContactDto emergencyContact = EmergencyContactDto.builder()
+            .name("Emergency Contact")
+            .relationship("Friend")
+            .phone("1234567890")
+            .email("contact@email.com")
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .emergencyContact(emergencyContact)
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getEmergencyContact());
+        assertEquals(emergencyContact.getName(), coApplicant.getEmergencyContact().getName());
+        assertEquals(emergencyContact.getRelationship(), coApplicant.getEmergencyContact().getRelationship());
+        assertEquals(emergencyContact.getPhone(), coApplicant.getEmergencyContact().getPhone());
+        assertEquals(emergencyContact.getEmail(), coApplicant.getEmergencyContact().getEmail());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithVehicle_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        VehicleDto vehicle = VehicleDto.builder()
+            .make("Make")
+            .model("Model")
+            .year(1000)
+            .color("Color")
+            .licenseNumber("123-ABC")
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .vehicles(Collections.singletonList(vehicle))
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getVehicles());
+        assertEquals(vehicle.getMake(), coApplicant.getVehicles().get(0).getMake());
+        assertEquals(vehicle.getModel(), coApplicant.getVehicles().get(0).getModel());
+        assertEquals(vehicle.getYear(), coApplicant.getVehicles().get(0).getYear());
+        assertEquals(vehicle.getColor(), coApplicant.getVehicles().get(0).getColor());
+        assertEquals(vehicle.getLicenseNumber(), coApplicant.getVehicles().get(0).getLicenseNumber());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithEmployer_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        EmployerDto employer = EmployerDto.builder()
+            .addressId(1L)
+            .name("Employer Name")
+            .phone("1234567890")
+            .monthlySalary(BigDecimal.valueOf(123.3))
+            .positionHeld("Position")
+            .yearsWorked((byte) 10)
+            .supervisorName("Supervisor Name")
+            .supervisorEmail("supervisor@email.com")
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .employer(employer)
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getEmployer());
+        assertEquals(employer.getAddressId(), coApplicant.getEmployer().getAddressId());
+        assertEquals(employer.getName(), coApplicant.getEmployer().getName());
+        assertEquals(employer.getPhone(), coApplicant.getEmployer().getPhone());
+        assertEquals(employer.getMonthlySalary(), coApplicant.getEmployer().getMonthlySalary());
+        assertEquals(employer.getPositionHeld(), coApplicant.getEmployer().getPositionHeld());
+        assertEquals(employer.getYearsWorked(), coApplicant.getEmployer().getYearsWorked());
+        assertEquals(employer.getSupervisorName(), coApplicant.getEmployer().getSupervisorName());
+        assertEquals(employer.getSupervisorEmail(), coApplicant.getEmployer().getSupervisorEmail());
+    }
+
+    @Test
+    public void updateCoApplicant_WhenGivenADtoWithAdditionalIncomeSource_ShouldMap() {
+        // Arrange
+        CoApplicant coApplicant = new CoApplicant();
+        AdditionalIncomeSourceDto additionalIncome = AdditionalIncomeSourceDto.builder()
+            .name("Additional Income")
+            .monthlyIncome(BigDecimal.valueOf(567.32))
+            .build();
+        UpdateCoApplicantDto updateCoApplicantDto = UpdateCoApplicantDto.builder()
+            .additionalIncomeSources(Collections.singletonList(additionalIncome))
+            .build();
+
+        // Act
+        applicationMapper.updateCoApplicant(updateCoApplicantDto, coApplicant);
+
+        // Assert
+        assertNotNull(coApplicant.getAdditionalIncomeSources());
+        assertEquals(additionalIncome.getName(), coApplicant.getAdditionalIncomeSources().get(0).getName());
+        assertEquals(additionalIncome.getMonthlyIncome(),
+            coApplicant.getAdditionalIncomeSources().get(0).getMonthlyIncome());
     }
 }
 

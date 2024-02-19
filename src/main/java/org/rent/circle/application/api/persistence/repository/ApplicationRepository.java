@@ -5,7 +5,6 @@ import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
-import java.util.Optional;
 import org.rent.circle.application.api.enums.Status;
 import org.rent.circle.application.api.persistence.model.Application;
 

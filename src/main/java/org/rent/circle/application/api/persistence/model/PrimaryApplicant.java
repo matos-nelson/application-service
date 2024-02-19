@@ -26,31 +26,10 @@ public class PrimaryApplicant extends Applicant {
     @Column(name = "eviction_explanation")
     private String evictionExplanation;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
-    private List<ResidentialHistory> residentialHistories;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
-    private List<PersonalReference> personalReferences;
+    @OneToOne(mappedBy = "primaryApplicant")
+    private Application application;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
     private List<CoApplicant> coApplicants;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
-    private List<Occupant> occupants;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
-    private List<Pet> pets;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "emergency_contact_id")
-    private EmergencyContact emergencyContact;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
-    private List<Vehicle> vehicles;
 }

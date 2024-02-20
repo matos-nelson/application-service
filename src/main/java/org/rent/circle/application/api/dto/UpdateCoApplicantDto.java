@@ -1,7 +1,8 @@
 package org.rent.circle.application.api.dto;
 
-import jakarta.validation.constraints.Email;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -16,36 +17,50 @@ import org.rent.circle.application.api.enums.Suffix;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoApplicantDto {
-
-    @NotNull
-    @NotBlank
-    private String firstName;
+public class UpdateCoApplicantDto {
 
     private String middleName;
 
-    @NotNull
-    @NotBlank
-    private String lastName;
-
     private Suffix suffix;
 
-    @Email
-    @NotBlank
-    private String email;
-
+    @NotNull
     @NotBlank
     private String phone;
 
     private boolean recentlyEvicted;
+
     private String evictionExplanation;
+
+    @NotNull
+    @NotEmpty
+    @Valid
     private List<ResidentialHistoryDto> residentialHistories;
+
+    @NotNull
     private List<PersonalReferenceDto> personalReferences;
+
+    @NotNull
+    @Valid
     private List<OccupantDto> occupants;
+
+    @NotNull
+    @Valid
     private List<PetDto> pets;
+
+    @NotNull
+    @Valid
     private IdentificationDto identification;
+
     private EmergencyContactDto emergencyContact;
+
+    @NotNull
     private List<VehicleDto> vehicles;
+
+    @NotNull
+    @Valid
     private EmployerDto employer;
+
+    @Valid
+    @NotNull
     private List<AdditionalIncomeSourceDto> additionalIncomeSources;
 }

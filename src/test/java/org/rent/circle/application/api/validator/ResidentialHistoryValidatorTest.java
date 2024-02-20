@@ -19,16 +19,6 @@ public class ResidentialHistoryValidatorTest {
     @Inject
     Validator validator;
 
-    public class TestDto {
-
-        @ValidHistory
-        ResidentialHistoryDto residentialHistoryDto;
-
-        public TestDto(ResidentialHistoryDto residentialHistoryDto) {
-            this.residentialHistoryDto = residentialHistoryDto;
-        }
-    }
-
     @Test
     public void isValid_WhenGivenAnInvalidHistory_ShouldReturnViolations() {
         // Arrange
@@ -76,5 +66,15 @@ public class ResidentialHistoryValidatorTest {
 
         // Assert
         assertEquals(violations.size(), 0);
+    }
+
+    public static class TestDto {
+
+        @ValidHistory
+        ResidentialHistoryDto residentialHistoryDto;
+
+        public TestDto(ResidentialHistoryDto residentialHistoryDto) {
+            this.residentialHistoryDto = residentialHistoryDto;
+        }
     }
 }

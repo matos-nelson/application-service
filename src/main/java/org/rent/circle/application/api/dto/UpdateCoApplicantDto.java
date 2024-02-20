@@ -36,6 +36,7 @@ public class UpdateCoApplicantDto {
     @Valid
     private List<ResidentialHistoryDto> residentialHistories;
 
+    @NotNull
     private List<PersonalReferenceDto> personalReferences;
 
     @NotNull
